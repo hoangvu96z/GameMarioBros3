@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Game.h"
 #include "Textures.h"
@@ -6,6 +7,8 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
+#include "Platform.h"
+#include "Background.h"
 #include "Koopas.h"
 
 
