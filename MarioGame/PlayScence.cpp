@@ -19,6 +19,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	Load scene resources from scene file (textures, sprites, animations and objects)
 	See scene1.txt, scene2.txt for detail format specification
 */
+#define TILE_WIDTH  32
+#define TILE_HEIGHT 32
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
@@ -26,6 +28,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_ANIMATIONS 4
 #define SCENE_SECTION_ANIMATION_SETS	5
 #define SCENE_SECTION_OBJECTS	6
+#define SCENE_SECTION_MAP_INFO				7
+#define SCENE_SECTION_TILE_MAP				8
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1
@@ -158,7 +162,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
-	case OBJECT_TYPE_BACKGROUND: obj = new CBackground(); break;
 	case OBJECT_TYPE_PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());
@@ -215,6 +218,12 @@ void CPlayScene::Load()
 			section = SCENE_SECTION_ANIMATION_SETS; continue; }
 		if (line == "[OBJECTS]") { 
 			section = SCENE_SECTION_OBJECTS; continue; }
+		if (line == "[MAP_INFO]") {
+			section = SCENE_SECTION_MAP_INFO; continue;
+		}
+		if (line == "[TILE_MAP]") {
+			section = SCENE_SECTION_TILE_MAP; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -227,6 +236,8 @@ void CPlayScene::Load()
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_MAP_INFO: _ParseSection_MAP_INFO(line); break;
+			case SCENE_SECTION_TILE_MAP:_ParseSection_TILE_MAP(line); break;
 		}
 	}
 
@@ -264,7 +275,7 @@ void CPlayScene::Update(DWORD dt)
 	cx -= (game->GetScreenWidth() - 100) / 2;
 	cy -= (game->GetScreenHeight() + 100) / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, cy);
+	CGame::GetInstance()->SetCamPos(cx, 0.0f);
 }
 
 void CPlayScene::Render()
@@ -316,4 +327,44 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 	else
 		mario->SetState(MARIO_STATE_IDLE);
+}
+
+void CPlayScene::_ParseSection_MAP_INFO(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 3) return; // skip invalid lines
+	this->mapWidth = atoi(tokens[0].c_str());
+	this->mapHeight = atoi(tokens[1].c_str());
+	this->offset_y = atoi(tokens[2].c_str());
+}
+
+void CPlayScene::_ParseSection_TILE_MAP(string line)
+{
+	D3DSURFACE_DESC surfaceDesc;
+	int cureneMapId = (CGame::GetInstance()->GetSceneId());
+	LPDIRECT3DTEXTURE9 tilesheet = CTextures::GetInstance()->Get(cureneMapId);
+	int level = 0;
+	if (tilesheet) {
+		tilesheet->GetLevelDesc(level, &surfaceDesc);
+	}
+	int nums_rowToRead = surfaceDesc.Height / TILE_HEIGHT;
+	int nums_colToRead = surfaceDesc.Width / TILE_WIDTH;
+
+	vector<string> map_tokens = split(line);
+
+	for (int i = 0; i < map_tokens.size(); i++)
+	{
+		RECT rectTile;
+		int index = atoi(map_tokens[i].c_str());
+		rectTile.left = (index % nums_colToRead) * TILE_WIDTH;
+		rectTile.top = (index / nums_colToRead) * TILE_HEIGHT;
+		rectTile.right = rectTile.left + TILE_WIDTH;
+		rectTile.bottom = rectTile.top + TILE_HEIGHT;
+		int x, y;
+		x = i * TILE_WIDTH;
+		y = this->offset_y;
+		CTile* tile = new CTile(x, y, rectTile.left, rectTile.top, rectTile.right, rectTile.bottom);
+		tiledMap.push_back(tile);
+	}
+	this->offset_y += TILE_HEIGHT;
 }
