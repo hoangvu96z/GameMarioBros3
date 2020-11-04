@@ -1,3 +1,4 @@
+
 #pragma once
 #include <Windows.h>
 #include <d3dx9.h>
@@ -23,15 +24,21 @@ typedef CAnimationFrame *LPANIMATION_FRAME;
 
 class CAnimation
 {
+	DWORD aniStartTime;
 	DWORD lastFrameTime;
 	int currentFrame;
 	int defaultTime;
+	DWORD totalFrameTime;
 	vector<LPANIMATION_FRAME> frames;
 public:
 	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(int spriteId, DWORD time = 0);
-
+	void Reset() { currentFrame = -1; }
+	int GetCurrentFrame() { return currentFrame; }
+	int GetTotalNumberOfFrame() { return frames.size(); }
 	void Render(float x, float y, int alpha = 255);
+	void SetAniStartTime(DWORD t) { aniStartTime = t; }
+	bool IsOver() { return GetTickCount() - aniStartTime >= totalFrameTime; }
 };
 
 typedef CAnimation *LPANIMATION;

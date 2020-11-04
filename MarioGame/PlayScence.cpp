@@ -295,12 +295,27 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CMario *mario = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+	case DIK_H: // turn into big mario
+		mario->ChangeToBigMario();
 		break;
-	case DIK_A: 
+	case DIK_R: // reset the game starting as small mario
 		mario->Reset();
 		break;
+	case DIK_SPACE:
+		if (mario->canFlyUpFromGround)
+		{
+			mario->canFlyUpFromGround = false;
+			mario->isFlying = true;
+		}
+		else
+		{
+			mario->SetState(MARIO_STATE_JUMP_HIGH);
+			mario->waggingTailStartTime = GetTickCount();
+		}
+		break;
+	case DIK_DOWN:
+		if (mario->isOnGround)
+			mario->isSitting = false;
 	}
 }
 

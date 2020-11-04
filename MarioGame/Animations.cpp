@@ -17,9 +17,10 @@ void CAnimation::Add(int spriteId, DWORD time)
 
 	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
 	frames.push_back(frame);
+	totalFrameTime += time;
 }
 
-// NOTE: sometimes Animation object is NULL ??? HOW ??? 
+// NOTE: sometimes Animation object is NULL ??? HOW ???  
 void CAnimation::Render(float x, float y, int alpha)
 {
 	DWORD now = GetTickCount();
