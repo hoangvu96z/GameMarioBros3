@@ -295,14 +295,17 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	CMario *mario = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_H: // turn into big mario
+	case DIK_1:
 		mario->ChangeToBigMario();
 		break;
-	case DIK_T: // reset the game starting as small mario
+	case DIK_R: 
 		mario->Reset();
 		break;
-	case DIK_R: // turn into raccoon mario
+	case DIK_2: 
 		mario->ChangeToRaccoonMario();
+		break;
+	case DIK_3: 
+		mario->ChangeToFireMario();
 		break;
 	case DIK_SPACE:
 		if (mario->canFlyUpFromGround)

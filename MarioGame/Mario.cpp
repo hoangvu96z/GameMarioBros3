@@ -435,6 +435,137 @@ void CMario::Render()
 				aniId = MARIO_RACCOON_ANI_FALLING_LEFT;
 		}
 
+	} 
+	else if (level == MARIO_FIRE)
+	{
+		switch (state)
+		{
+		case MARIO_STATE_DIE:
+			aniId = MARIO_ANI_DIE;
+			break;
+
+		case MARIO_STATE_STOP:
+			if (!isOnGround)
+				goto CASE_FIRE_IS_FALLING;
+			if (nx > 0)
+				aniId = MARIO_FIRE_ANI_STOP_RIGHT;
+			else
+				aniId = MARIO_FIRE_ANI_STOP_LEFT;
+			break;
+
+		case MARIO_STATE_WALKING_RIGHT:
+			if (isSitting && !isOnGround)
+				goto CASE_FIRE_IS_SITTING;
+			if (!isOnGround)
+				goto CASE_FIRE_IS_FALLING;
+			aniId = MARIO_FIRE_ANI_WALK_RIGHT;
+			break;
+
+		case MARIO_STATE_WALKING_LEFT:
+			if (isSitting && !isOnGround)
+				goto CASE_FIRE_IS_SITTING;
+			if (!isOnGround)
+				goto CASE_FIRE_IS_FALLING;
+			aniId = MARIO_FIRE_ANI_WALK_LEFT;
+			break;
+
+		case MARIO_STATE_RUNNING_RIGHT:
+			if (isSitting)
+				goto CASE_FIRE_IS_SITTING;
+			if (!isOnGround)
+				goto CASE_FIRE_IS_FALLING;
+			if (vx < MARIO_RUNNING_SPEED)
+				aniId = MARIO_FIRE_ANI_WALK_RIGHT;
+			else
+				aniId = MARIO_FIRE_ANI_RUNNING_RIGHT;
+			break;
+
+		case MARIO_STATE_RUNNING_LEFT:
+			if (isSitting)
+				goto CASE_FIRE_IS_SITTING;
+			if (!isOnGround)
+				goto CASE_FIRE_IS_FALLING;
+			if (vx > -MARIO_RUNNING_SPEED)
+				aniId = MARIO_FIRE_ANI_WALK_LEFT;
+			else
+				aniId = MARIO_FIRE_ANI_RUNNING_LEFT;
+			break;
+
+		case MARIO_STATE_ATTACK:
+			if (isOnGround)
+			{
+				if (nx > 0)
+					aniId = MARIO_FIRE_ANI_SHOOT_FIREBALL_RIGHT;
+				else
+					aniId = MARIO_FIRE_ANI_SHOOT_FIREBALL_LEFT;
+			}
+			else
+			{
+				if (nx > 0)
+					aniId = MARIO_FIRE_ANI_SHOOT_FIREBALL_WHILE_JUMPING_RIGHT;
+				else
+					aniId = MARIO_FIRE_ANI_SHOOT_FIREBALL_WHILE_JUMPING_LEFT;
+			}
+			break;
+
+		case MARIO_STATE_JUMP_HIGH:
+		case MARIO_STATE_JUMP_LOW:
+			if (isSitting)
+				goto CASE_FIRE_IS_SITTING;
+			if (vy < 0)
+			{
+				if (nx > 0)
+					aniId = MARIO_FIRE_ANI_JUMP_RIGHT;
+				else
+					aniId = MARIO_FIRE_ANI_JUMP_LEFT;
+			}
+			else
+			{
+				if (nx > 0)
+					aniId = MARIO_FIRE_ANI_FALLING_RIGHT;
+				else
+					aniId = MARIO_FIRE_ANI_FALLING_LEFT;
+			}
+			break;
+
+		CASE_FIRE_IS_SITTING:
+		case MARIO_STATE_SIT_DOWN:
+			if (nx > 0)
+				aniId = MARIO_FIRE_ANI_SITTING_RIGHT;
+			else
+				aniId = MARIO_FIRE_ANI_SITTING_LEFT;
+			break;
+
+		case MARIO_STATE_IDLE:
+			if (!isOnGround)
+				goto CASE_FIRE_IS_FALLING;
+			else
+			{
+				if (vx > 0)
+				{
+					aniId = MARIO_FIRE_ANI_WALK_RIGHT;
+				}
+				else if (vx < 0)
+				{
+					aniId = MARIO_FIRE_ANI_WALK_LEFT;
+				}
+				else
+				{
+					if (nx > 0)
+						aniId = MARIO_FIRE_ANI_IDLE_RIGHT;
+					else
+						aniId = MARIO_FIRE_ANI_IDLE_LEFT;
+				}
+			}
+			break;
+
+		CASE_FIRE_IS_FALLING:
+		default:
+			if (nx > 0)
+				aniId = MARIO_FIRE_ANI_FALLING_RIGHT;
+			else
+				aniId = MARIO_FIRE_ANI_FALLING_LEFT;
+		}
 	}
 
 	int alpha = 255;
@@ -610,6 +741,17 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 			right = left + MARIO_RACCOON_BBOX_WIDTH_RIGHT;
 		}
 	}
+	else if (level == MARIO_FIRE)
+	{
+		right = left + MARIO_FIRE_BBOX_WIDTH;
+		bottom = top + MARIO_FIRE_BBOX_HEIGHT;
+		if (GetAniId() == MARIO_FIRE_ANI_SITTING_RIGHT
+			|| GetAniId() == MARIO_FIRE_ANI_SITTING_LEFT)
+		{
+			top = y + MARIO_SIT_BBOX;
+			bottom = top + MARIO_FIRE_SIT_BBOX_HEIGHT;
+		}
+	}
 }
 
 /*
@@ -672,4 +814,16 @@ void CMario::ChangeToRaccoonMario()
 	else if (level == MARIO_FIRE)
 		y += (MARIO_FIRE_BBOX_HEIGHT - MARIO_RACCOON_BBOX_HEIGHT);
 	SetLevel(MARIO_RACCOON);
+}
+
+void CMario::ChangeToFireMario() {
+	if (level == MARIO_FIRE)
+		return;
+	if (level == MARIO_LEVEL_SMALL)
+		y += (MARIO_SMALL_BBOX_HEIGHT - MARIO_FIRE_BBOX_HEIGHT);
+	else if (level == MARIO_RACCOON)
+		y += (MARIO_RACCOON_BBOX_HEIGHT - MARIO_FIRE_BBOX_HEIGHT);
+	else if (level == MARIO_LEVEL_BIG)
+		y += (MARIO_BIG_BBOX_HEIGHT - MARIO_FIRE_BBOX_HEIGHT);
+	SetLevel(MARIO_FIRE);
 }
