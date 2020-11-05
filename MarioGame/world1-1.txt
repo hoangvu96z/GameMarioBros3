@@ -1,0 +1,461 @@
+# id	file_path	transparent_color_r	g	b
+[TEXTURES]
+0	textures\mario\mario2.png	255	255	255
+20	textures\misc2.png	0	117	255
+10	textures\enemies.png	3	26	110
+30	textures\enemies-2.png	0	128	128
+70	textures\background.png	76	220	72
+39	textures\mario\raccoon_3.png	255	255	255
+40	textures\mario\raccoon_4.png	255	255	255
+41	textures\mario\raccoon_5.png	255 	255	255
+42	textures\mario\fireball_right.png	0	255	255
+43	textures\mario\fireball_left.png	0	255	255
+44	textures\mario\fireball_bonus_left.png	0	255	255
+
+# id	left	top	right	bottom	texture_id
+[SPRITES]
+# === BACKGROUND
+1	13	14	2813	459	70
+# =============== MARIO ===============
+# === BIG MARIO 
+# idle right
+10000	209	243	230	270	0
+# walk right
+10001	249	243	271	270	0
+10002	289	244	311	270	0
+# run fast right
+10003	209	323	232	350	0
+10004	249	323	272	350	0
+10005	289	324	312	350	0
+# jump right
+10006	329	244	351	270	0
+# stop and to right
+10007	170	283	191	311	0
+# sit down right
+10008	370	239	390	266	0
+
+# idle left
+10020	176	243	190	270	0
+# walk left
+10021	135	243	151	270	0
+10022	95	244	111	270	0
+# jump left
+10023	55	244	71	270	0
+# run fast left
+10024	174	323	193	350	0
+10025	134	323	153	350	0
+10026	94	324	113	350	0
+# stop and to left
+10027	215	283	231	311	0
+# sit down left
+10028	16	239	30	266	0
+
+# die 
+10099	375	209	391	225	0
+
+# === SMALL MARIO
+# idle right
+10040	215	88	229	104	0
+# walk right
+10041	256	89	271	105	0
+# run fast right
+10043	215	169	231	185	0
+10044	255	169	271	185	0
+# jump small right 
+10045	335	89	351	105	0
+# stop right
+10046	216	129	230	145	0
+
+# idle left
+10060	175	88	189	104	0
+# walk left
+10061	134	89	150	105	0
+# run fast left
+10063	175	169	191	185	0
+10064	135	169	151	185	0
+# jump left
+10065	55	89	71	105	0
+# stop left
+10066	176	129	190	145	0
+
+# === RACCOON MARIO
+# idle right
+10100	208	443	233	471	0
+# walk right
+10101	260	443	284	471	0
+10102	289	443	314	470	0
+# run fast right
+10103	209	523	235	551	0
+10104	249	523	275	551	0
+10105	289	523	315	550	0
+# jump right
+10106	329	443	354	470	0
+# stop right
+10107	166	482	191	512	0
+# spin tail idle right
+10108	234	443	259	471	0
+10109	346	483	371	511	0
+10110	6	4	38	32	39
+10111	381	483	406	511	0
+# sit down right
+10112	370	438	394	466	0
+# wag tail while falling right
+10113	209	603	234	631	0
+10114	249	603	274	631	0
+# flying right
+10115	291	603	315	631	0
+10116	331	603	355	630	0
+10117	371	603	395	630	0
+
+# idle left
+10120	8	3	36	31	41
+# walk left
+10121	115	443	144	471	0
+10122	85	443	115	470	0
+# run fast left
+10123	164	523	195	551	0
+10124	124	523	155	551	0
+10125	84	523	115	550	0
+# jump left
+10126	45	443	75	470	0
+# stop left
+10127	208	482	231	512	0
+# spin tail idle left
+10128	8	4	38	32	39
+10129	348	483	371	511	0
+10130	236	443	259	471	0
+10131	383	483	406	511	0
+# sit down left
+10132	5	438	34	466	0
+# wag tail while falling left
+10133	165	603	195	631	0
+10134	125	603	154	631	0
+# flying left
+10135	84	603	115	631	0
+10136	44	603	75	630	0
+10137	4	603	35	630	0
+
+# === FIRE MARIO
+# idle right
+300	10200	100
+# walk right
+301	10200	100	10201	100	10202	100	10201	100
+# run fast right
+302	10203	25	10204	25	10205	25
+# jump right
+303	10206	100
+# stop right
+304	10207	150
+# shoot fireball right
+305	10208	100	10209	100	10200	100
+# shoot fireball while jumping right
+306	10210	100	10211	100	10212	100
+# sit down right
+307	10213	100
+# falling right
+308	10202	100
+
+# idle left
+320	10220	100
+# walk left
+321	10220	100	10221	100	10222	100	10221	100
+# run fast left
+322	10223	25	10224	25	10225	25
+# jump left
+323	10226	100
+# stop left
+324	10227	150
+# fshoot fireball left
+325	10228	100	10229	100	10220	100
+# shoot fireball while jumping left
+326	10230	100	10231	100	10232	100
+# sit down left
+327	10233	100
+# falling left
+328	10222	100
+
+# =============== PLATFORM ===============
+# === BRICK
+19001	4	7	20	23	20
+#GOOMBA
+30001	5	14	21	29	10
+30002	25	14	41	29	10
+#die
+30003	45	21	61	29	10
+
+# =============== ENERMY ===============
+# === KOOPAS
+#walk left
+50001	205	191	221	217	30
+50002	222	191	238	217	30
+#walk right
+50011	187	191	202	217	30
+50012	170	191	185	217	30
+#die
+50031	152	202	168	217	20
+
+#brick with question mark animation
+
+#==========================================
+#==========================================
+
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+# ======== BACKGROUND ========
+1	1	100
+
+# ======== MARIO ========
+# === BIG MARIO
+# idle right
+100	10000	100
+# walk right
+101	10000	100	10001	100	10002	100	10001	100
+# run fast right
+102	10003	25	10004	25	10005	25
+# jump right
+103	10006	500
+# sit down right
+104	10008	100
+# stop right
+105	10007	150
+# falling right
+106	10002	100
+
+# idle left
+120	10020	100
+# walk left
+121	10020	100	10021	100	10022	100	10021	100
+# run fast left
+122	10024	25	10025	25	10026	25
+# jump left big
+123	10023	500
+# sit down left
+124	10028	100
+# stop left
+125	10027	150
+# falling left
+126	10022	100
+
+# === SMALL MARIO
+# idle right
+140	10040	1000
+# walk right
+141	10040	100	10041	100
+# run fast right
+142	10043	25	10044	25
+# jump right 
+143	10045	100
+# stop right
+144	10046	100
+
+# idle left
+160	10060	100
+# walk left
+161	10060	100	10061	100
+# run fast left
+162	10063	25	10064	25
+# jump left
+163	10065	100
+# stop left
+164	10066	100
+
+#die 
+#599	10099	100
+
+# === RACCOON MARIO
+# idle right
+200	10100	100
+# walk right
+201	10100	100	10101	100	10102	100	10101	100
+# run fast right
+202	10103	25	10104	25	10105	25
+# jump right
+203	10106	100
+# stop right
+204	10107	150
+# spin tail idle right
+205	10108	75	10109	75	10110	75	10111	75	10108	75
+# sit down right
+206	10112	100
+# falling right 
+207	10113	100
+# wag tail right
+208	10114	50	10102	50	10113	50
+# flying up right
+209	10115	50
+# flying down right
+210	10016	50
+# wag tail while flying right
+211	10117	50	10116	50	10115	50
+
+
+# idle left
+220	10120	100
+# walk left
+221	10120	100	10121	100	10122	100	10121	100
+# run fast left
+222	10123	25	10124	25	10125	25
+# jump left
+223	10126	100
+# stop left
+224	10127	150
+# spin tail idle left
+225	10128	75	10129	75	10130	75	10131	75	10128	75
+# sit down left
+226	10132	100
+# falling left
+227	10133	100
+# wag tail left
+228	10134	50	10122	50	10133	50
+# flying up left
+229	10136	50
+# flying down left
+230	10135	50
+# wag tail while flying left
+231	10137	50	10136	50	10135	50
+
+# === FIRE MARIO 
+# idle right
+300	10200	100
+# walk right
+301	10200	100	10201	100	10202	100	10201	100
+# run fast right
+302	10203	25	10204	25	10205	25
+# jump right
+303	10206	100
+# stop right
+304	10207	150
+# shoot fireball right
+305	10208	100	10209	100	10200	100
+# shoot fireball while jumping right
+306	10210	100	10211	100	10212	100
+# sit down right
+307	10213	100
+# falling right
+308	10202	100
+
+# idle left
+320	10220	100
+# walk left
+321	10220	100	10221	100	10222	100	10221	100
+# run fast left
+322	10223	25	10224	25	10225	25
+# jump left
+323	10226	100
+# stop left
+324	10227	150
+# fshoot fireball left
+325	10228	100	10229	100	10220	100
+# shoot fireball while jumping left
+326	10230	100	10231	100	10232	100
+# sit down left
+327	10233	100
+# falling left
+328	10222	100
+
+# ======== BRICK ========
+601	19001	100
+
+# ======== QUESTION MARK BRICK ========
+602	40001	1000	40001	100	40002	100	40003	100	40004	100
+
+
+# ======== GOOMBA  ========
+# walk
+701	30001	100	30002	100
+# die
+702	30003	100
+
+# ======== KOOPAS  ========
+#walk left
+801	50001	100	50002	100
+#walk right
+802	50011	100	50012	100'
+#die
+803	50031	100
+
+#==========================================
+#==========================================
+#
+# id	ani1	ani2	ani3
+#
+[ANIMATION_SETS]
+# MARIO
+1	100	101	102	103	104	105	106	120	121	122	123	124	125	126	140	141	142	143	144	160	161	162	163	164	200	201	202	203	204	205	206	207	208	209	210	211 220	221	222	223	224	225	226	227	228	229 230 231 300	301	302	303	304	305	306	307	308	320	321	322	323	324	325	326	327	328 599
+# BRICK 
+2	601
+# QUESTION MARK BRICK 
+22	602
+# GOOMBA
+3	701	702
+#KOOPAS
+4	801	802	803
+# BACKGROUND
+5	1
+
+#==========================================
+#==========================================
+
+[OBJECTS]
+# type	x	y	ani_set_id	extra_settings per object type
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 4 = Background
+# BACKGROUND
+4	1	1	5
+# MARIO
+0	20.0	255	1
+
+# KOOPAS
+#3	180	394	4
+
+# GOOMBA
+#2	190	405	3
+#2	260	405	3
+
+# BRICK 
+# --- platform (hint: I created the list using Excel!) ----
+1	0	418	2
+1	16	418	2
+1	32	418	2
+1	48	418	2
+1	64	418	2
+1	80	418	2
+1	96	418	2
+1	112	418	2
+1	128	418	2
+1	144	418	2
+1	160	418	2
+1	176	418	2
+1	192	418	2
+1	208	418	2
+1	224	418	2
+1	240	418	2
+1	256	418	2
+1	272	418	2
+1	288	418	2
+1	304	418	2
+1	320	418	2
+1	336	418	2
+1	352	418	2
+1	368	418	2
+1	384	418	2
+1	405	418	2
+1	418	418	2
+1	432	418	2
+1	448	418	2
+1   	464 	418 	2
+1   	480 	418 	2
+1   	496 	418 	2
+1   	512 	418 	2
+1   	528 	418 	2
+1   	544 	418 	2
+1   	560 	418 	2
+1   	576	418 	2
+1   	592 	418 	2
+1   	608 	418 	2
+
+
+
+# --- SCENE PORTAL ----
+# type	l	t	ani_set_id	r	b	scene_id
+
+

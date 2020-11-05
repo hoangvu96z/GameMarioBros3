@@ -298,17 +298,24 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_H: // turn into big mario
 		mario->ChangeToBigMario();
 		break;
-	case DIK_R: // reset the game starting as small mario
+	case DIK_T: // reset the game starting as small mario
 		mario->Reset();
+		break;
+	case DIK_R: // turn into raccoon mario
+		mario->ChangeToRaccoonMario();
 		break;
 	case DIK_SPACE:
 		if (mario->canFlyUpFromGround)
 		{
+			if (mario->GetLevel() == MARIO_RACCOON)
+				mario->SetState(MARIO_STATE_FLYING);
 			mario->canFlyUpFromGround = false;
 			mario->isFlying = true;
 		}
 		else
 		{
+			if (!mario->isOnGround && mario->GetLevel() == MARIO_RACCOON)
+				mario->isWaggingTail = true;
 			mario->SetState(MARIO_STATE_JUMP_HIGH);
 			mario->waggingTailStartTime = GetTickCount();
 		}
