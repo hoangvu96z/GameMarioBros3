@@ -160,6 +160,12 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="mario-sample.txt" />
+    <Text Include="world1-1.txt" />
+    <Text Include="world1-2.txt" />
+    <Text Include="world1-3.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Koopas.h"
 
 #define MARIO_WALKING_SPEED		0.15f 
 //0.1f
@@ -38,7 +39,7 @@
 #define MARIO_STATE_FLYING			800
 #define MARIO_STATE_STOP			900
 #define MARIO_STATE_ATTACK			1000
-#define MARIO_STATE_DIE				9999
+#define MARIO_STATE_DIE				999
 
 // **ANIMATION Definition
 

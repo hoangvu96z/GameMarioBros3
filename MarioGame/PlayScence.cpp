@@ -323,7 +323,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			mario->waggingTailStartTime = GetTickCount();
 		}
 		break;
-	case DIK_A: // attack enemies while in Fire or Raccoon transformation
+	case DIK_A: // attack enemies
 		if (mario->GetLevel() == MARIO_FIRE || mario->GetLevel() == MARIO_RACCOON)
 			mario->Attack();
 		break;
@@ -342,9 +342,9 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT)) {
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-		float cx, cy;
+		/*float cx, cy;
 		mario->GetPosition(cx, cy);
-		DebugOut(L"[INFO] Mario:: X: %0.1f, Y: %0.1f \n", cx, cy);
+		DebugOut(L"[INFO] Mario:: X: %0.1f, Y: %0.1f \n", cx, cy);*/
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 		mario->SetState(MARIO_STATE_WALKING_LEFT);

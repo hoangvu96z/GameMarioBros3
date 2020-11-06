@@ -117,11 +117,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba 
+			if (dynamic_cast<CGoomba *>(e->obj))
 			{
 				CGoomba* goomba = dynamic_cast<CGoomba *>(e->obj);
-
-				// jump on top >> kill Goomba and deflect a bit 
 				if (e->ny < 0)
 				{
 					if (goomba->GetState()!= GOOMBA_STATE_DIE)
@@ -153,6 +151,33 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					x += dx;
 				}
+			}
+			else if (dynamic_cast<CKoopas *>(e->obj)) {
+				CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
+					if (e->ny < 0)
+					{
+						if (koopas->GetState() != KOOPAS_STATE_DIE)
+						{
+							koopas->SetState(KOOPAS_STATE_DIE);
+							vy = -MARIO_JUMP_DEFLECT_SPEED;
+						}
+					}
+					else if (e->nx != 0)
+					{
+						if (untouchable == 0)
+						{
+							if (koopas->GetState() != KOOPAS_STATE_DIE)
+							{
+								if (level > MARIO_LEVEL_SMALL)
+								{
+									level = MARIO_LEVEL_SMALL;
+									StartUntouchable();
+								}
+								else
+									SetState(MARIO_STATE_DIE);
+							}
+						}
+					}
 			}
 		}
 	}
@@ -289,7 +314,8 @@ void CMario::Render()
 		else if (vx > 0)
 			aniId = MARIO_ANI_SMALL_WALKING_RIGHT;
 		else aniId = MARIO_ANI_SMALL_WALKING_LEFT;
-	} 
+	}
+	// RACCOON MARIO
 	else if (level == MARIO_RACCOON)
 	{
 		switch (state)
@@ -445,7 +471,8 @@ void CMario::Render()
 				aniId = MARIO_RACCOON_ANI_FALLING_LEFT;
 		}
 
-	} 
+	}
+	// FIRE MARIO
 	else if (level == MARIO_FIRE)
 	{
 		switch (state)
@@ -582,6 +609,7 @@ void CMario::Render()
 	if (untouchable) alpha = 128;
 
 	animation_set->at(aniId)->Render(x, y, alpha);
+	DebugOut(L"[INFO] aniId: %d\n", aniId);
 
 	//RenderBoundingBox();
 }
@@ -608,7 +636,7 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RUNNING_RIGHT:
-		DebugOut(L"set state run right\n");
+		DebugOut(L"[INFO] State go right\n");
 		vx += MARIO_RUNNING_ACCELERATION * dt;
 		if (vx >= MARIO_RUNNING_SPEED)
 		{
@@ -620,7 +648,7 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RUNNING_LEFT:
-		DebugOut(L"set state run left\n");
+		DebugOut(L"[INFO] State go left\n");
 		vx -= MARIO_RUNNING_ACCELERATION * dt;
 		if (vx <= -MARIO_RUNNING_SPEED)
 		{
@@ -694,6 +722,7 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_DIE:
 		vy = -MARIO_DIE_DEFLECT_SPEED;
+		vx = 0;
 		break;
 	}
 }

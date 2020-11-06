@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Framework_Source">
       <UniqueIdentifier>{990103dc-bcee-45f9-9182-3bdba9921b2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TXT Files">
+      <UniqueIdentifier>{5648a6ef-aee8-4651-b350-363b3b6022a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -134,5 +137,19 @@
     <ClInclude Include="constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="mario-sample.txt">
+      <Filter>TXT Files</Filter>
+    </Text>
+    <Text Include="world1-1.txt">
+      <Filter>TXT Files</Filter>
+    </Text>
+    <Text Include="world1-2.txt">
+      <Filter>TXT Files</Filter>
+    </Text>
+    <Text Include="world1-3.txt">
+      <Filter>TXT Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
