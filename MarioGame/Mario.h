@@ -129,8 +129,7 @@
 
 
 // - MARIO OTHER
-#define MARIO_ANI_DIE				99
-
+#define MARIO_ANI_DIE				62
 // ** LEVEL Defintion
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -212,4 +211,5 @@ public:
 	void SetIdling();
 	void ChangeToRaccoonMario();
 	void ChangeToFireMario();
+	void Attack();
 };

@@ -144,7 +144,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO:
+	case ObjectType::MARIO:
 		if (player!=NULL) 
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
@@ -155,11 +155,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
-	case OBJECT_TYPE_BACKGROUND: obj = new CBackground(); break;
-	case OBJECT_TYPE_PORTAL:
+	case ObjectType::GOOMBA: obj = new CGoomba(); break;
+	case ObjectType::BRICK: obj = new CBrick(); break;
+	case ObjectType::KOOPA: obj = new CKoopas(); break;
+	case ObjectType::BACKGROUND: obj = new CBackground(); break;
+	case ObjectType::PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());
 			float b = atof(tokens[5].c_str());
@@ -167,13 +167,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = new CPortal(x, y, r, b, scene_id);
 		}
 		break;
-	case OBJECT_TYPE_PLATFORM:
+	case ObjectType::PLATFORM:
 	{
-		//DebugOut(L"aaaa");
-		float r = atof(tokens[4].c_str());
-		float b = atof(tokens[5].c_str());
-		obj = new CPlatform(x, y, r, b);
-
+		float width = atof(tokens[4].c_str());
+		float height = atof(tokens[5].c_str());
+		obj = new CPlatform(width, height);
+		break;
 	}
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
@@ -233,6 +232,7 @@ void CPlayScene::Load()
 	f.close();
 
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	CTextures::GetInstance()->Add(ID_TEX_BBOX2, L"textures\\bbox2.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
@@ -323,6 +323,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			mario->waggingTailStartTime = GetTickCount();
 		}
 		break;
+	case DIK_A: // attack enemies while in Fire or Raccoon transformation
+		if (mario->GetLevel() == MARIO_FIRE || mario->GetLevel() == MARIO_RACCOON)
+			mario->Attack();
+		break;
 	case DIK_DOWN:
 		if (mario->isOnGround)
 			mario->isSitting = false;
@@ -336,8 +340,12 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
+	if (game->IsKeyDown(DIK_RIGHT)) {
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		float cx, cy;
+		mario->GetPosition(cx, cy);
+		DebugOut(L"[INFO] Mario:: X: %0.1f, Y: %0.1f \n", cx, cy);
+	}
 	else if (game->IsKeyDown(DIK_LEFT))
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 	else

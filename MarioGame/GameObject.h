@@ -6,11 +6,13 @@
 
 #include "Sprites.h"
 #include "Animations.h"
+#include "constants.h"
 
 
 using namespace std;
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
+#define ID_TEX_BBOX2 -101
 
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;
@@ -59,6 +61,10 @@ public:
 	int state;
 
 	int aniId;
+
+	ObjectType type;
+	ObjectCategory category;
+
 	DWORD dt; 
 
 	LPANIMATION_SET animation_set;
@@ -71,7 +77,7 @@ public:
 
 	int GetState() { return this->state; }
 
-	void RenderBoundingBox();
+	void RenderBoundingBox(int id);
 
 	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 

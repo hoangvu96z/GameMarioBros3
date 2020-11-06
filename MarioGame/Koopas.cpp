@@ -2,6 +2,8 @@
 
 CKoopas::CKoopas()
 {
+	type = KOOPA;
+	category = ENEMY;
 	SetState(KOOPAS_STATE_WALKING);
 }
 

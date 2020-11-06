@@ -7,9 +7,12 @@
 
 #include "Goomba.h"
 #include "Portal.h"
+#include "Platform.h"
 
 CMario::CMario(float x, float y) : CGameObject()
 {
+	type = MARIO;
+	category = PLAYER;
 	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
@@ -142,6 +145,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 								SetState(MARIO_STATE_DIE);
 						}
 					}
+				}
+			}
+			else if (dynamic_cast<CPlatform *>(e->obj))
+			{
+				if (e->nx != 0)
+				{
+					x += dx;
 				}
 			}
 		}
@@ -826,4 +836,10 @@ void CMario::ChangeToFireMario() {
 	else if (level == MARIO_LEVEL_BIG)
 		y += (MARIO_BIG_BBOX_HEIGHT - MARIO_FIRE_BBOX_HEIGHT);
 	SetLevel(MARIO_FIRE);
+}
+
+void CMario::Attack()
+{
+	SetState(MARIO_STATE_ATTACK);
+	attackStartTime = GetTickCount();
 }
