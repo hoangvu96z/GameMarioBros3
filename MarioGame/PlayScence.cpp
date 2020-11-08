@@ -348,6 +348,19 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else
+	else if (game->IsKeyDown(DIK_DOWN))
+	{
+		if (mario->GetLevel() != MARIO_LEVEL_SMALL && mario->isOnGround)
+		{
+			mario->SetState(MARIO_STATE_SIT_DOWN);
+			mario->isSitting = true;
+		}
+	} else if ((game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
+		|| (game->IsKeyDown(DIK_DOWN) && game->IsKeyDown(DIK_UP)))
+	{
+		mario->SetState(MARIO_STATE_IDLE);
+		mario->isSitting = false;
+	}
+	else 
 		mario->SetState(MARIO_STATE_IDLE);
 }

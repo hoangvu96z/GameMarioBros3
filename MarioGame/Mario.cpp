@@ -421,7 +421,7 @@ void CMario::Render()
 				if (isWaggingTail)
 				{
 					if (nx > 0)
-						aniId = MARIO_RACCOON_ANI_FALLING_WAG_TAIL_RIGHT;
+	 					aniId = MARIO_RACCOON_ANI_FALLING_WAG_TAIL_RIGHT;
 					else
 						aniId = MARIO_RACCOON_ANI_FALLING_WAG_TAIL_LEFT;
 				}
@@ -684,7 +684,7 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_JUMP_HIGH:
 		if (isWaggingTail)
-			vy = -MARIO_GRAVITY * dt / 2;
+			vy = -MARIO_GRAVITY * dt / 3;
 		else if (isOnGround)
 		{
 			vy = -MARIO_HIGH_JUMP_SPEED_Y;
