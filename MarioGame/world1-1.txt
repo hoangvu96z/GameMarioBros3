@@ -14,8 +14,6 @@
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
-# === BACKGROUND
-1	14	18	2813	459	70
 # =============== MARIO ===============
 # === BIG MARIO 
 # idle right
@@ -217,8 +215,6 @@
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
-# ======== BACKGROUND ========
-1	1	100
 
 # ======== MARIO ========
 # === BIG MARIO
@@ -419,8 +415,6 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 4 = Background, 5 = PLATFORM
 
-# BACKGROUND
-4	0	0	5
 # MARIO
 0	20.0	255	1
 
@@ -462,3 +456,7 @@
 # type	l	t	ani_set_id	r	b	scene_id
 
 
+[TILEMAP]
+#10	textures\map1.png	textures\map.txt	11	11	27	208	16	16
+#10	textures\b16.png	textures\b16.txt	1	420	45	178	16	16
+10	textures\world1-1\tilesheet.png	textures\world1-1\matrix.txt	14	12	27	177	16	16

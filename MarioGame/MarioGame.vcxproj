@@ -130,6 +130,7 @@
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

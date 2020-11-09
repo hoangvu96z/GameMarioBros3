@@ -84,6 +84,9 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files\Framework_Source</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files\Framework_Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mario.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="constants.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Header Files\Framework_Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

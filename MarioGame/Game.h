@@ -15,6 +15,8 @@
 using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 class CGame
 {
@@ -84,6 +86,8 @@ public:
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
+	float GetCamPosX() { return cam_x; }
+	float GetCamPosY() { return cam_y; }
 
 	static CGame * GetInstance();
 

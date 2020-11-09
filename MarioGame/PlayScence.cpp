@@ -20,12 +20,13 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	See scene1.txt, scene2.txt for detail format specification
 */
 
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_TEXTURES 2
-#define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_ANIMATIONS 4
+#define SCENE_SECTION_UNKNOWN			-1
+#define SCENE_SECTION_TEXTURES			2
+#define SCENE_SECTION_SPRITES			3
+#define SCENE_SECTION_ANIMATIONS		4
 #define SCENE_SECTION_ANIMATION_SETS	5
-#define SCENE_SECTION_OBJECTS	6
+#define SCENE_SECTION_OBJECTS			6
+#define SCENE_SECTION_TILEMAP			7
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1
@@ -214,6 +215,11 @@ void CPlayScene::Load()
 			section = SCENE_SECTION_ANIMATION_SETS; continue; }
 		if (line == "[OBJECTS]") { 
 			section = SCENE_SECTION_OBJECTS; continue; }
+		if (line == "[TILEMAP]")
+		{
+			section = SCENE_SECTION_TILEMAP;
+			continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -226,6 +232,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_TILEMAP: _ParseSection_TileMap(line); break;
 		}
 	}
 
@@ -270,6 +277,7 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	map->Draw();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
@@ -363,4 +371,21 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 	}
 	else 
 		mario->SetState(MARIO_STATE_IDLE);
+}
+
+void CPlayScene::_ParseSection_TileMap(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 9) return;
+	int ID = atoi(tokens[0].c_str());
+	wstring file_texture = ToWSTR(tokens[1]);
+	wstring file_path = ToWSTR(tokens[2]);
+	int row_on_textures = atoi(tokens[3].c_str());
+	int col_on_textures = atoi(tokens[4].c_str());
+	int row_on_tile_map = atoi(tokens[5].c_str());
+	int col_on_tile_map = atoi(tokens[6].c_str());
+	int tile_width = atoi(tokens[7].c_str());
+	int tile_height = atoi(tokens[8].c_str());
+	//int texID = atoi(tokens[0].c_str());
+	map = new TileMap(ID, file_texture.c_str(), file_path.c_str(), row_on_textures, col_on_textures, row_on_tile_map, col_on_tile_map, tile_width, tile_height);
 }
