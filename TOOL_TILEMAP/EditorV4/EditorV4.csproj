@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04C3353F-7780-4E44-8F38-6242F5347ACB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EditorV4</RootNamespace>
+    <AssemblyName>EditorV4</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CanvasScrollControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CanvasScrollControl.Designer.cs">
+      <DependentUpon>CanvasScrollControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClassType.cs" />
+    <Compile Include="Controls\ColorPickerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorPickerControl.Designer.cs">
+      <DependentUpon>ColorPickerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IAddNew.cs" />
+    <Compile Include="Controls\ICanvasScrollControl1.cs" />
+    <Compile Include="Controls\ListAttribute.cs" />
+    <Compile Include="Controls\ObjectCreatedEventArgs.cs" />
+    <Compile Include="Controls\CustomSpliter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PropertyGridModel\CustomPropertyGridModel.cs" />
+    <Compile Include="Controls\SwitchControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolStripButtonCustom.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TrackbarCustom.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeViewControl\CustomTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeViewControl\ICustomTreeView.cs" />
+    <Compile Include="Controls\TreeViewControl\ITreeViewContainer.cs" />
+    <Compile Include="Controls\TreeViewControl\TestTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeViewControl\TestTreeView.Designer.cs">
+      <DependentUpon>TestTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TreeViewControl\TreeViewObject.cs" />
+    <Compile Include="EditorObjects\BaseObject.cs" />
+    <Compile Include="EditorObjects\GameObject.cs" />
+    <Compile Include="EditorObjects\GameObjectCategory.cs" />
+    <Compile Include="EditorObjects\GroupSelectable.cs" />
+    <Compile Include="EditorObjects\IObjectsManager.cs" />
+    <Compile Include="EditorObjects\ISelectableObject.cs" />
+    <Compile Include="EditorObjects\RectangleObject.cs" />
+    <Compile Include="Forms\AddCollisionTypeCollideForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCollisionTypeCollideForm.Designer.cs">
+      <DependentUpon>AddCollisionTypeCollideForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddCollisionTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCollisionTypeForm.Designer.cs">
+      <DependentUpon>AddCollisionTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddPropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddPropertyForm.Designer.cs">
+      <DependentUpon>AddPropertyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChooseObjectTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChooseObjectTypeForm.Designer.cs">
+      <DependentUpon>ChooseObjectTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateObjectCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateObjectCategoryForm.Designer.cs">
+      <DependentUpon>CreateObjectCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RemovePropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RemovePropertyForm.Designer.cs">
+      <DependentUpon>RemovePropertyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingForm.Designer.cs">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IMapEditor.cs" />
+    <Compile Include="MapEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapEditor.Designer.cs">
+      <DependentUpon>MapEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models.V2\BoudingSelectingLayer.cs" />
+    <Compile Include="Models.V2\CollisionTypeCollide.cs" />
+    <Compile Include="Models.V2\FocusedObjectLayer.cs" />
+    <Compile Include="Models.V2\IConvertLocation.cs" />
+    <Compile Include="Models.V2\ISaveable.cs" />
+    <Compile Include="Models.V2\ITilesModel.cs" />
+    <Compile Include="Models.V2\MouseMovingBase.cs" />
+    <Compile Include="Models.V2\QuadNode.cs" />
+    <Compile Include="Models.V2\QuadtreeLayer.cs" />
+    <Compile Include="Models.V2\RenderPixelRuler.cs" />
+    <Compile Include="Models.V2\RenderGrid.cs" />
+    <Compile Include="Models.V2\SelectedTileInWorldLayer.cs" />
+    <Compile Include="Models.V2\SelectTileFromWorldLayer.cs" />
+    <Compile Include="Models.V2\SimpleViewportLimit.cs" />
+    <Compile Include="Models.V2\TileObjectLayer.cs" />
+    <Compile Include="Models.V2\TileRender.cs" />
+    <Compile Include="Models.V2\TilesheetCanvas.cs" />
+    <Compile Include="Models.V2\TilesheetConvertWorldView.cs" />
+    <Compile Include="Models.V2\TilesheetLoaderFromExistingFile.cs" />
+    <Compile Include="Models.V2\TilesModel.cs" />
+    <Compile Include="Models.V2\TreeViewSave.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AddTileService.cs" />
+    <Compile Include="Services\ControlScrollService.cs" />
+    <Compile Include="Services\CreateObjectService.cs" />
+    <Compile Include="Services\ModifiedObjectService.cs" />
+    <Compile Include="Services\SaveModels\SaveModel.cs" />
+    <Compile Include="Services\SaveService.cs" />
+    <Compile Include="Services\SelectTileFromWorldService.cs" />
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateNewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateNewForm.Designer.cs">
+      <DependentUpon>CreateNewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StartForm.Designer.cs">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models.V2\CanvasViewGroup.cs" />
+    <Compile Include="Models.V2\CanvasViewport.cs" />
+    <Compile Include="Models.V2\EditorCanvas.cs" />
+    <Compile Include="Models.V2\EditorCanvasRender.cs" />
+    <Compile Include="Models.V2\EditorCanvasScrollHandling.cs" />
+    <Compile Include="Models.V2\IDrawableObject.cs" />
+    <Compile Include="Models.V2\IViewportLimit.cs" />
+    <Compile Include="Models.V2\PaddingCanvasGroup.cs" />
+    <Compile Include="Models.V2\TestInterface.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CanvasScrollControlService.cs" />
+    <Compile Include="Ultils\BitmapExtension.cs" />
+    <Compile Include="Ultils\MatrixExtension.cs" />
+    <Compile Include="Ultils\NumberExtension.cs" />
+    <Compile Include="Ultils\PathParser.cs" />
+    <Compile Include="Ultils\PointSizeValueHelper.cs" />
+    <Compile Include="Ultils\Property.cs" />
+    <Compile Include="Ultils\RectangleExtension.cs" />
+    <Compile Include="Ultils\Reflect.cs" />
+    <Compile Include="UndoRedo\Model\AddObjectAction.cs" />
+    <Compile Include="UndoRedo\Model\AddObjectCategoryAction.cs" />
+    <Compile Include="UndoRedo\Model\GroupAction.cs" />
+    <Compile Include="UndoRedo\Model\GroupObjectAction.cs" />
+    <Compile Include="UndoRedo\Model\RemovePropertyAction.cs" />
+    <Compile Include="UndoRedo\Model\AddPropertyAction.cs" />
+    <Compile Include="UndoRedo\Model\BaseAction.cs" />
+    <Compile Include="UndoRedo\Model\GameObjectMovingAction.cs" />
+    <Compile Include="UndoRedo\Model\GameObjectSizingAction.cs" />
+    <Compile Include="UndoRedo\Model\ModifiledTileAction.cs" />
+    <Compile Include="UndoRedo\Model\PropertyChangeAction.cs" />
+    <Compile Include="UndoRedo\Model\RemoveObjectAction.cs" />
+    <Compile Include="UndoRedo\Model\RemoveObjectCategoryAction.cs" />
+    <Compile Include="UndoRedo\Model\UnGroupAction.cs" />
+    <Compile Include="UndoRedo\UndoRedoManager.cs" />
+    <EmbeddedResource Include="Controls\CanvasScrollControl.resx">
+      <DependentUpon>CanvasScrollControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ColorPickerControl.resx">
+      <DependentUpon>ColorPickerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeViewControl\CustomTreeView.resx">
+      <DependentUpon>CustomTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeViewControl\TestTreeView.resx">
+      <DependentUpon>TestTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddCollisionTypeCollideForm.resx">
+      <DependentUpon>AddCollisionTypeCollideForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddCollisionTypeForm.resx">
+      <DependentUpon>AddCollisionTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddPropertyForm.resx">
+      <DependentUpon>AddPropertyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChooseObjectTypeForm.resx">
+      <DependentUpon>ChooseObjectTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateObjectCategoryForm.resx">
+      <DependentUpon>CreateObjectCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemovePropertyForm.resx">
+      <DependentUpon>RemovePropertyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingForm.resx">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapEditor.resx">
+      <DependentUpon>MapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateNewForm.resx">
+      <DependentUpon>CreateNewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StartForm.resx">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\create-new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\import_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1[yterr].png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\393965-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\quadtree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rect2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\object2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\group1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\group11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\group12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\itile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\itile1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\itile2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\itile3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hor1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rectcancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\collision1_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\collision1_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\object.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\object_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\collision.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
