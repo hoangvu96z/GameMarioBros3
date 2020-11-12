@@ -1,4 +1,5 @@
 
+
 #pragma once
 #include "Game.h"
 #include "Textures.h"
@@ -11,6 +12,7 @@
 #include "Background.h"
 #include "Koopas.h"
 #include "TileMap.h"
+#include "Fireball.h"
 
 
 class CPlayScene: public CScene

@@ -62,9 +62,11 @@ public:
 	int state;
 
 	int aniId;
+	bool isFinishedUsing;
 
 	ObjectType type;
 	ObjectCategory category;
+	int object_colliding_nx;
 
 	DWORD dt; 
 

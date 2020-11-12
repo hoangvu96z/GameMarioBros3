@@ -157,9 +157,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case ObjectType::GOOMBA: obj = new CGoomba(); break;
-	case ObjectType::BRICK: obj = new CBrick(); break;
 	case ObjectType::KOOPA: obj = new CKoopas(); break;
-	case ObjectType::BACKGROUND: obj = new CBackground(); break;
 	case ObjectType::PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());

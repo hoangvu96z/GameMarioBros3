@@ -1,12 +1,13 @@
 #pragma once
 #include "GameObject.h"
 #include "Koopas.h"
+#include "Fireball.h"
+#include "HitEffect.h"
 
 #define MARIO_WALKING_SPEED		0.15f 
 //0.1f
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_DEFLECT_SPEED 0.2f
-#define MARIO_GRAVITY			0.002f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
 #define MARIO_RUNNING_SPEED						0.23f
 #define MARIO_MAX_WALKING_SPEED					0.12f
@@ -14,7 +15,6 @@
 #define MARIO_HIGH_JUMP_SPEED_Y		0.275f
 #define MARIO_LOW_JUMP_SPEED_Y		0.2f
 #define MARIO_JUMP_DEFLECT_SPEED	0.2f
-#define MARIO_GRAVITY				0.0006f
 #define MARIO_LOW_JUMP_GRAVITY		0.001f
 #define MARIO_DIE_DEFLECT_SPEED		0.5f
 #define MARIO_FLY_SPEED_Y			0.25f
@@ -160,6 +160,9 @@
 // ** OTHER Definition
 
 #define MARIO_UNTOUCHABLE_TIME 1000
+#define	MARIO_WAGGING_TAIL_TIME			150
+#define	MARIO_SPINNING_TAIL_TIME		375
+#define	MARIO_SHOOTING_FIREBALL_TIME	375
 
 
 class CMario : public CGameObject
@@ -201,6 +204,8 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	int GetAniId() { return aniId; }
 
+	CFireball* CreateFireball(float x, float y, int nx);
+	
 	void Reset();
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);

@@ -9,6 +9,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
+#include <string>
 
 #define VA_PRINTS(s) {				\
 		va_list argp;				\

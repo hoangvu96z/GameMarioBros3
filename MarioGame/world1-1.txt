@@ -11,6 +11,7 @@
 42	textures\mario\fireball_right.png	0	255	255
 43	textures\mario\fireball_left.png	0	255	255
 44	textures\mario\fireball_bonus_left.png	0	255	255
+33	textures\effect.png	176	224	248
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
@@ -196,6 +197,23 @@
 # non question
 40005	235	188	251	204	20
 
+# === HIT EFFECT
+1000	80	20	96	36	33
+1001	97	20	111	34	33
+1002	126	22	140	33	33
+
+# === FIREBALL
+# right
+31	17	4	25	12	42
+32	4	19	12	27	42
+33	4	4	12	12	42
+34	18	19	26	27	43
+
+# left
+35	5	4	13	12	43
+36	18	19	26	27	43
+37	4	19	12	27	43
+38	4	4	12	12	44
 
 # =============== ENERMY ===============
 # === KOOPAS
@@ -374,19 +392,25 @@
 # ====== QUESTION BRICK AFTER ======
 3	40005	100
 
-# ======== GOOMBA  ========
+# ======== GOOMBA ========
 # walk
 701	30001	100	30002	100
 # die
 702	30003	100
 
-# ======== KOOPAS  ========
+# ======== KOOPAS ========
 #walk left
 801	50001	100	50002	100
 #walk right
 802	50011	100	50012	100
 #die
 803	50031	100
+
+# ======== FIREBALL ========
+# right
+890	31	80	32	80	33	80	34	80
+# left
+891	35	80	36	80	37	80	38	80
 
 #==========================================
 #==========================================
@@ -407,6 +431,10 @@
 4	801	802	803
 # BACKGROUND
 5	1
+# FIREBALL
+9	890	891
+# HIT EFFECT
+11	900
 
 #==========================================
 #==========================================
@@ -459,4 +487,4 @@
 [TILEMAP]
 #10	textures\map1.png	textures\map.txt	11	11	27	208	16	16
 #10	textures\b16.png	textures\b16.txt	1	420	45	178	16	16
-10	textures\world1-1\tilesheet.png	textures\world1-1\matrix.txt	14	12	27	177	16	16
+10	textures\w1-1\tilesheet.png	textures\w1-1\matrix.txt	10	9	28	177	16	16

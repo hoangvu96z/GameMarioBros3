@@ -13,10 +13,12 @@ CMario::CMario(float x, float y) : CGameObject()
 {
 	type = MARIO;
 	category = PLAYER;
+
+	type = MARIO;
+	category = PLAYER;
 	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
-	isOnGround = true;
 
 	start_x = x; 
 	start_y = y; 
@@ -29,12 +31,25 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	if (attackStartTime && GetTickCount() - attackStartTime < 375)
+	// Simple fall down
+	vy += MARIO_GRAVITY * dt;
+
+	if (level == MARIO_RACCOON && attackStartTime
+		&& GetTickCount() - attackStartTime < MARIO_SPINNING_TAIL_TIME)
 		SetState(MARIO_STATE_ATTACK);
 	else
 		attackStartTime = 0;
 
-	if (waggingTailStartTime && GetTickCount() - waggingTailStartTime < 150)
+
+	if (level == MARIO_FIRE && attackStartTime
+		&& GetTickCount() - attackStartTime < MARIO_SHOOTING_FIREBALL_TIME)
+		SetState(MARIO_STATE_ATTACK);
+	else
+		attackStartTime = 0;
+
+
+	if (waggingTailStartTime
+		&& GetTickCount() - waggingTailStartTime < MARIO_WAGGING_TAIL_TIME)
 		SetState(MARIO_STATE_JUMP_HIGH);
 	else
 	{
@@ -42,8 +57,53 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isWaggingTail = false;
 	}
 
-	// Simple fall down
-	vy += MARIO_GRAVITY * dt;
+
+	if (isAttacking)
+	{
+		if (listWeapon.size() < 2)
+		{
+			if (nx > 0)
+				listWeapon.push_back(CreateFireball(x + 10, y + 6, nx));
+			else
+				listWeapon.push_back(CreateFireball(x - 6, y + 6, nx));
+		}
+		isAttacking = false;
+	}
+
+	// update listWeapon
+	for (int i = 0; i < listWeapon.size(); i++)
+	{
+		listWeapon[i]->Update(dt, coObjects);
+		if (listWeapon[i]->isFinishedUsing)
+		{
+			float bx, by;
+			listWeapon[i]->GetPosition(bx, by);
+			CHitEffect* effect = new CHitEffect({ bx, by });
+			listEffect.push_back(effect);
+		}
+	}
+
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Update(dt, coObjects);
+	}
+
+	// remove weapons and effects have done
+	for (int i = 0; i < listWeapon.size(); i++)
+	{
+		if (listWeapon[i]->isFinishedUsing)
+		{
+			listWeapon.erase(listWeapon.begin() + i);
+		}
+	}
+
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		if (listEffect[i]->isFinishedUsing)
+		{
+			listEffect.erase(listEffect.begin() + i);
+		}
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -61,10 +121,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	if (isWaitingForAni && animation_set->at(aniId)->IsOver())
-	{
-		isWaitingForAni = false;
-	}
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -117,7 +173,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba *>(e->obj))
+			if (dynamic_cast<CGoomba *>(e->obj)) 
 			{
 				CGoomba* goomba = dynamic_cast<CGoomba *>(e->obj);
 				if (e->ny < 0)
@@ -152,7 +208,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					x += dx;
 				}
 			}
-			else if (dynamic_cast<CKoopas *>(e->obj)) {
+				else if (dynamic_cast<CKoopas *>(e->obj)) {
 				CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
 					if (e->ny < 0)
 					{
@@ -609,7 +665,17 @@ void CMario::Render()
 	if (untouchable) alpha = 128;
 
 	animation_set->at(aniId)->Render(x, y, alpha);
-	DebugOut(L"[INFO] aniId: %d\n", aniId);
+	// DebugOut(L"[INFO] aniId: %d\n", aniId);
+
+	for (int i = 0; i < listWeapon.size(); i++)
+	{
+			listWeapon[i]->Render();
+	}
+
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Render();
+	}
 
 	//RenderBoundingBox();
 }
@@ -871,4 +937,11 @@ void CMario::Attack()
 {
 	SetState(MARIO_STATE_ATTACK);
 	attackStartTime = GetTickCount();
+	isAttacking = true;
+}
+
+CFireball* CMario::CreateFireball(float x, float y, int nx)
+{
+	CFireball* fireball = new CFireball({ x, y }, nx);
+	return fireball;
 }
