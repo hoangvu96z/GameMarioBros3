@@ -1,6 +1,6 @@
-#include"Platform.h"
+#include "Platform.h"
 
-CPlatform::CPlatform(int width, int height) : CGameObject::CGameObject()
+CPlatform::CPlatform(float width, float height)
 {
 	type = PLATFORM;
 	category = MISC;
@@ -10,13 +10,13 @@ CPlatform::CPlatform(int width, int height) : CGameObject::CGameObject()
 
 void CPlatform::Render()
 {
-	RenderBoundingBox(2);
+	RenderBoundingBox(3);
 }
 
 void CPlatform::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	r = x + 16 * width;
-	b = y + 16 * height;
+	r = x + BBOX_WIDTH * width;
+	b = y + BBOX_HEIGHT * height;
 }

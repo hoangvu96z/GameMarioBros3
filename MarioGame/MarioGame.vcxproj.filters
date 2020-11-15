@@ -54,9 +54,6 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files\Objects_Source</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source Files\Objects_Source</Filter>
-    </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Source Files\Objects_Source</Filter>
     </ClCompile>
@@ -96,6 +93,12 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BigBox.cpp">
+      <Filter>Source Files\Objects_Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mario.h">
@@ -106,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="Koopas.h">
       <Filter>Header Files\Enermies_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Header Files\Objects_Header</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Header Files\Objects_Header</Filter>
@@ -159,6 +159,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigBox.h">
+      <Filter>Header Files\Objects_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

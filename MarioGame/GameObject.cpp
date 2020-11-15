@@ -127,6 +127,9 @@ void CGameObject::RenderBoundingBox(int id)
 	case 2:
 		bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX2);
 		break;
+	case 3:
+		bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX3);
+		break;
 	default:
 		bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
 		break;
@@ -140,7 +143,7 @@ void CGameObject::RenderBoundingBox(int id)
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
 

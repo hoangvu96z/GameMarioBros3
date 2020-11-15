@@ -179,9 +179,9 @@ public:
 	vector<LPGAMEOBJECT> listWeapon;
 	vector<LPGAMEOBJECT> listEffect;
 
-	DWORD jumpStartTime;
-	DWORD attackStartTime;
-	DWORD waggingTailStartTime;
+	ULONGLONG jumpStartTime;
+	ULONGLONG attackStartTime;
+	ULONGLONG waggingTailStartTime;
 	bool isSpeedingUp, isFalling, isSitting, isWaggingTail, isFlying, isAttacking;
 	bool canFlyUpFromGround;
 	bool isOnGround;
@@ -201,7 +201,7 @@ public:
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	int GetAniId() { return aniId; }
 
 	CFireball* CreateFireball(float x, float y, int nx);

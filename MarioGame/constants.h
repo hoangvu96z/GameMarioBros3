@@ -6,11 +6,10 @@ enum ObjectType
 	QUESTION_BRICK = 1,
 	GOOMBA = 2,
 	KOOPA = 3,
-	BACKGROUND = 4,
-	PLATFORM = 5,
+	PLATFORM = 4,
 	BIGBOX = 5,
-	FIREBALL = 6,
-	TAIL = 7,
+	FIREBALL = 7,
+	TAIL = 8,
 };
 
 enum ObjectCategory

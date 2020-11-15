@@ -7,7 +7,7 @@
 
 #include "Goomba.h"
 #include "Portal.h"
-#include "Platform.h"
+#include "BigBox.h"
 
 CMario::CMario(float x, float y) : CGameObject()
 {
@@ -35,21 +35,21 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += MARIO_GRAVITY * dt;
 
 	if (level == MARIO_RACCOON && attackStartTime
-		&& GetTickCount() - attackStartTime < MARIO_SPINNING_TAIL_TIME)
+		&& GetTickCount64() - attackStartTime < MARIO_SPINNING_TAIL_TIME)
 		SetState(MARIO_STATE_ATTACK);
 	else
 		attackStartTime = 0;
 
 
 	if (level == MARIO_FIRE && attackStartTime
-		&& GetTickCount() - attackStartTime < MARIO_SHOOTING_FIREBALL_TIME)
+		&& GetTickCount64() - attackStartTime < MARIO_SHOOTING_FIREBALL_TIME)
 		SetState(MARIO_STATE_ATTACK);
 	else
 		attackStartTime = 0;
 
 
 	if (waggingTailStartTime
-		&& GetTickCount() - waggingTailStartTime < MARIO_WAGGING_TAIL_TIME)
+		&& GetTickCount64() - waggingTailStartTime < MARIO_WAGGING_TAIL_TIME)
 		SetState(MARIO_STATE_JUMP_HIGH);
 	else
 	{
@@ -115,7 +115,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
+	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -201,7 +201,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<CPlatform *>(e->obj))
+			else if (dynamic_cast<CBigBox *>(e->obj))
 			{
 				if (e->nx != 0)
 				{
@@ -740,11 +740,11 @@ void CMario::SetState(int state)
 	case MARIO_STATE_JUMP_LOW:
 		if (isOnGround)
 		{
-			jumpStartTime = GetTickCount();
+			jumpStartTime = GetTickCount64();
 			vy = -MARIO_LOW_JUMP_SPEED_Y;
 			isOnGround = false;
 		}
-		if (GetTickCount() - jumpStartTime >= 100 && !isFalling)
+		if (GetTickCount64() - jumpStartTime >= 100 && !isFalling)
 			vy += MARIO_LOW_JUMP_GRAVITY * dt;
 		break;
 
@@ -936,7 +936,7 @@ void CMario::ChangeToFireMario() {
 void CMario::Attack()
 {
 	SetState(MARIO_STATE_ATTACK);
-	attackStartTime = GetTickCount();
+	attackStartTime = GetTickCount64();
 	isAttacking = true;
 }
 

@@ -166,11 +166,18 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			obj = new CPortal(x, y, r, b, scene_id);
 		}
 		break;
-	case ObjectType::PLATFORM:
+	case ObjectType::PLATFORM: 
 	{
 		float width = atof(tokens[4].c_str());
 		float height = atof(tokens[5].c_str());
 		obj = new CPlatform(width, height);
+		break;
+	}
+	case ObjectType::BIGBOX:
+	{
+		float width = atof(tokens[4].c_str());
+		float height = atof(tokens[5].c_str());
+		obj = new CBigBox(width, height);
 		break;
 	}
 	default:
@@ -238,6 +245,7 @@ void CPlayScene::Load()
 
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	CTextures::GetInstance()->Add(ID_TEX_BBOX2, L"textures\\bbox2.png", D3DCOLOR_XRGB(255, 255, 255));
+	CTextures::GetInstance()->Add(ID_TEX_BBOX3, L"textures\\bbox3.png", D3DCOLOR_XRGB(128, 0, 255));
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
@@ -326,7 +334,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			if (!mario->isOnGround && mario->GetLevel() == MARIO_RACCOON)
 				mario->isWaggingTail = true;
 			mario->SetState(MARIO_STATE_JUMP_HIGH);
-			mario->waggingTailStartTime = GetTickCount();
+			mario->waggingTailStartTime = GetTickCount64();
 		}
 		break;
 	case DIK_A: // attack enemies
