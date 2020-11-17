@@ -14,8 +14,6 @@ CMario::CMario(float x, float y) : CGameObject()
 	type = MARIO;
 	category = PLAYER;
 
-	type = MARIO;
-	category = PLAYER;
 	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
@@ -173,30 +171,26 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba *>(e->obj)) 
+			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
 			{
-				CGoomba* goomba = dynamic_cast<CGoomba *>(e->obj);
+				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+				// jump on top >> kill Goomba and deflect a bit 
 				if (e->ny < 0)
 				{
-					if (goomba->GetState()!= GOOMBA_STATE_DIE)
+					if (goomba->GetState() != ENEMY_STATE_DIE_BY_WEAPON)
 					{
-						goomba->SetState(GOOMBA_STATE_DIE);
+						goomba->SetState(GOOMBA_STATE_DIE_BY_KICK);
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
 					}
 				}
 				else if (e->nx != 0)
 				{
-					if (untouchable==0)
+					if (untouchable == 0)
 					{
-						if (goomba->GetState()!=GOOMBA_STATE_DIE)
+						if (goomba->GetState() != ENEMY_STATE_DIE_BY_WEAPON)
 						{
-							if (level > MARIO_LEVEL_SMALL)
-							{
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-								SetState(MARIO_STATE_DIE);
+							WhenTouchWithEnermy();
 						}
 					}
 				}
@@ -944,4 +938,20 @@ CFireball* CMario::CreateFireball(float x, float y, int nx)
 {
 	CFireball* fireball = new CFireball({ x, y }, nx);
 	return fireball;
+}
+
+void CMario::WhenTouchWithEnermy()
+{
+	if (level > MARIO_LEVEL_BIG)
+	{
+		level = MARIO_LEVEL_BIG;
+		StartUntouchable();
+	}
+	else if (level > MARIO_LEVEL_SMALL)
+	{
+		level = MARIO_LEVEL_SMALL;
+		StartUntouchable();
+	}
+	else
+		SetState(MARIO_STATE_DIE);
 }

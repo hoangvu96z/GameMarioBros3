@@ -12,6 +12,9 @@
 43	textures\mario\fireball_left.png	0	255	255
 44	textures\mario\fireball_bonus_left.png	0	255	255
 33	textures\effect.png	176	224	248
+52	textures\enemy\enemies-5.png	0	255	255
+53	textures\enemy\enemies-5_1.png	0	255	255
+54	textures\enemy\enemies-5_2.png	0	255	255
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
@@ -184,10 +187,13 @@
 # === BRICK
 19001	4	7	20	23	20
 #GOOMBA
-30001	5	14	21	29	10
-30002	25	14	41	29	10
-#die
-30003	45	21	61	29	10
+# move
+30001	32	11	48	27	52
+30002	9	11	27	27	52
+# die by kick
+30003	54	11	70	27	52
+# die by attack
+30004	299	341	315	357	54
 
 # === QUESTION BRICK
 40001	157	188	173	204	20
@@ -393,10 +399,12 @@
 3	40005	100
 
 # ======== GOOMBA ========
-# walk
-701	30001	100	30002	100
-# die
-702	30003	100
+# move
+702	30001	100	30002	100
+# die by kick
+703	30003	100
+# die by attack
+704	30004	100
 
 # ======== KOOPAS ========
 #walk left
@@ -412,6 +420,9 @@
 # left
 891	35	80	36	80	37	80	38	80
 
+# ======= HIT EFFECT =======
+900	1000	50	1001	50	1002	50
+
 #==========================================
 #==========================================
 #
@@ -426,7 +437,7 @@
 # QUESTION MARK BRICK 
 22	602	3
 # GOOMBA
-3	701	702
+3	702	703	704
 #KOOPAS
 4	801	802	803
 # BACKGROUND
@@ -444,19 +455,19 @@
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 4 = PLATFORM, 5 = BIGBOX
 
 # MARIO
-0	20.0	255	1
+0	20.0	256	1
 
 # ======== ENERMY ========
 # KOOPAS
-3	180	390	4
+#3	180	390	4
 
 # GOOMBA
-2	300	401	3
-2	350	401	3
+2	300	395	3
+2	350	395	3
 
 
 # ======== PLATFORM ========
-# BIGBOXES
+# BIGBOX
 5	240	368	22	3	3
 5	272	336	22	3	5
 5	400	368	22	5	3

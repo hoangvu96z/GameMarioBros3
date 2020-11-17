@@ -2,7 +2,7 @@
 
 CBigBox::CBigBox(int width, int height) : CGameObject::CGameObject()
 {
-	type = PLATFORM;
+	type = BIGBOX;
 	category = MISC;
 	this->width = width;
 	this->height = height;

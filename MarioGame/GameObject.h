@@ -8,6 +8,7 @@
 #include "Sprites.h"
 #include "Animations.h"
 #include "constants.h"
+#include "Game.h"
 
 
 using namespace std;
@@ -68,6 +69,7 @@ public:
 	ObjectType type;
 	ObjectCategory category;
 	int object_colliding_nx;
+	int attack_tool_nx;
 
 	DWORD dt; 
 

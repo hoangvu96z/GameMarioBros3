@@ -4,7 +4,7 @@
 class CEffect : public CGameObject
 {
 protected:
-	DWORD startEffect;
+	ULONGLONG startEffect;
 	int effectTime;
 public:
 	CEffect();

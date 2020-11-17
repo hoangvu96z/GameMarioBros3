@@ -3,49 +3,107 @@ CGoomba::CGoomba()
 {
 	type = GOOMBA;
 	category = ENEMY;
-	SetState(GOOMBA_STATE_WALKING);
+	SetState(ENEMY_STATE_MOVE);
 }
 
-void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (isFinishedUsing)
+		return;
 	left = x;
-	top = y;
 	right = x + GOOMBA_BBOX_WIDTH;
+	bottom = y + GOOMBA_BBOX_HEIGHT;
 
-	if (state == GOOMBA_STATE_DIE)
-		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;
-	else 	
-		bottom = y + GOOMBA_BBOX_HEIGHT;
+	if (state == GOOMBA_STATE_DIE_BY_KICK)
+	{
+		top = y + (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE_BY_KICK);
+	}
+	else
+	{
+		top = y;
+	}
+
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+	vy += MARIO_GRAVITY * dt;
 
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-
-	x += dx;
-	y += dy;
-
-	if (vx < 0 && x < 0) {
-		x = 0; vx = -vx;
+	if (dieTime && GetTickCount() - dieTime >= 250)
+	{
+		isFinishedUsing = true;
+		vanish = true;
 	}
 
-	if (vx > 0 && x > 290) {
-		x = 290; vx = -vx;
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
 	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny = 0;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		// block every object first!
+		y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + nx * 0.4f;
+
+		if (ny != 0)
+		{
+			vy = 0;
+		}
+		//
+		// Collision logic with other objects
+		//
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			if (state == ENEMY_STATE_MOVE)
+			{
+				if (e->obj->type == ObjectType::BIGBOX)
+				{
+					if (e->nx != 0)
+						x += dx;
+				}
+				else if (e->obj->category == ObjectCategory::MISC || e->obj->category == ObjectCategory::ENEMY)
+				{
+					if (e->nx != 0)
+					{
+						vx = -vx;
+					}
+				}
+			}
+		}
+	}
+
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CGoomba::Render()
 {
-	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
-		ani = GOOMBA_ANI_DIE;
-	}
+	if (vanish) return;
 
-	animation_set->at(ani)->Render(x,y);
+	if (state == ENEMY_STATE_DIE)
+		aniId = GOOMBA_ANI_DIE_BY_ATTACK_TOOL;
+	else if (state == GOOMBA_STATE_DIE_BY_KICK)
+		aniId = GOOMBA_ANI_DIE_BY_KICK;
+	else
+		aniId = GOOMBA_ANI_MOVE;
+
+	animation_set->at(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
 }
@@ -55,12 +113,22 @@ void CGoomba::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-		case GOOMBA_STATE_DIE:
-			y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
-			vx = 0;
-			vy = 0;
-			break;
-		case GOOMBA_STATE_WALKING: 
-			vx = -GOOMBA_WALKING_SPEED;
+	case ENEMY_STATE_DIE:
+		vx = GOOMBA_DEFLECT_SPEED_X * attack_tool_nx;
+		vy = -GOOMBA_DEFLECT_SPEED_Y;
+		isFinishedUsing = true;
+		break;
+	case ENEMY_STATE_MOVE:
+		vx = -GOOMBA_MOVE_SPEED_X;
+		nx = -1;
+		break;
+	case GOOMBA_STATE_DIE_BY_KICK:
+		vx = 0;
+		dieTime = GetTickCount();
+		break;
 	}
+}
+
+CGoomba::~CGoomba()
+{
 }

@@ -218,4 +218,5 @@ public:
 	void ChangeToRaccoonMario();
 	void ChangeToFireMario();
 	void Attack();
+	void WhenTouchWithEnermy();
 };

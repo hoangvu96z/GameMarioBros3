@@ -4,8 +4,8 @@ CPlatform::CPlatform(float width, float height)
 {
 	type = PLATFORM;
 	category = MISC;
-	this->width = width;
-	this->height = height;
+	this->width = (int)width;
+	this->height = (int)height;
 }
 
 void CPlatform::Render()
