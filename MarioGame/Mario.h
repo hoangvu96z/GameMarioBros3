@@ -1,3 +1,4 @@
+
 #pragma once
 #include "GameObject.h"
 #include "Koopas.h"
@@ -43,6 +44,11 @@
 
 // **ANIMATION Definition
 
+// - MARIO GENERAL
+
+#define MARIO_ANI_SMALL_KICK_LEFT			70
+#define MARIO_ANI_SMALL_KICK_RIGHT			69
+
 // - MARIO BIG
 #define MARIO_ANI_BIG_IDLE_RIGHT			0
 #define MARIO_ANI_BIG_WALKING_RIGHT			1
@@ -51,6 +57,7 @@
 #define MARIO_ANI_BIG_SITTING_RIGHT			4
 #define MARIO_ANI_BIG_STOP_RIGHT			5
 #define MARIO_ANI_BIG_FALLING_RIGHT			6
+#define MARIO_ANI_BIG_KICK_RIGHT			67
 
 #define MARIO_ANI_BIG_IDLE_LEFT				7
 #define MARIO_ANI_BIG_WALKING_LEFT			8
@@ -59,6 +66,7 @@
 #define MARIO_ANI_BIG_SITTING_LEFT			11
 #define MARIO_ANI_BIG_STOP_LEFT				12
 #define MARIO_ANI_BIG_FALLING_LEFT			13
+#define MARIO_ANI_BIG_KICK_LEFT				68
 
 // - MARIO SMALL 
 
@@ -88,6 +96,7 @@
 #define MARIO_RACCOON_ANI_FLYING_UP_RIGHT				33
 #define MARIO_RACCOON_ANI_FLYING_DOWN_RIGHT				63
 #define MARIO_RACCOON_ANI_WAG_TAIL_WHILE_FLYING_RIGHT	64
+#define MARIO_RACCOON_ANI_KICK_RIGHT					71
 
 #define MARIO_RACCOON_ANI_IDLE_LEFT						34
 #define MARIO_RACCOON_ANI_WALK_LEFT						35
@@ -101,6 +110,7 @@
 #define MARIO_RACCOON_ANI_FLYING_UP_LEFT				43
 #define MARIO_RACCOON_ANI_FLYING_DOWN_LEFT				65
 #define MARIO_RACCOON_ANI_WAG_TAIL_WHILE_FLYING_LEFT	66
+#define MARIO_RACCOON_ANI_KICK_LEFT						72
 
 // - MARIO FIRE
 
@@ -113,6 +123,7 @@
 #define MARIO_FIRE_ANI_SHOOT_FIREBALL_WHILE_JUMPING_RIGHT	50
 #define MARIO_FIRE_ANI_SITTING_RIGHT						51
 #define MARIO_FIRE_ANI_FALLING_RIGHT						52
+#define MARIO_FIRE_ANI_KICK_RIGHT							73
 
 #define MARIO_FIRE_ANI_IDLE_LEFT							53
 #define MARIO_FIRE_ANI_WALK_LEFT							54
@@ -123,6 +134,8 @@
 #define MARIO_FIRE_ANI_SHOOT_FIREBALL_WHILE_JUMPING_LEFT	59
 #define MARIO_FIRE_ANI_SITTING_LEFT							60
 #define MARIO_FIRE_ANI_FALLING_LEFT							61
+#define MARIO_FIRE_ANI_KICK_LEFT							74
+
 
 #define MARIO_FIRE_BBOX_WIDTH	15
 #define MARIO_FIRE_BBOX_HEIGHT	27
@@ -163,6 +176,8 @@
 #define	MARIO_WAGGING_TAIL_TIME			150
 #define	MARIO_SPINNING_TAIL_TIME		375
 #define	MARIO_SHOOTING_FIREBALL_TIME	375
+#define MARIO_KICK_TIME					200
+#define MARIO_KICK						1100
 
 
 class CMario : public CGameObject
@@ -182,9 +197,12 @@ public:
 	ULONGLONG jumpStartTime;
 	ULONGLONG attackStartTime;
 	ULONGLONG waggingTailStartTime;
+	ULONGLONG kickStartTime;
+
 	bool isSpeedingUp, isFalling, isSitting, isWaggingTail, isFlying, isAttacking;
 	bool canFlyUpFromGround;
 	bool isOnGround;
+	bool kickShell;
 
 	bool isWaitingForAni;
 	bool specialAniCase;

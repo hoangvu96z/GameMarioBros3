@@ -1,19 +1,23 @@
 #pragma once
-
 #include "GameObject.h"
 
-#define KOOPAS_WALKING_SPEED 0.03f;
-
-#define KOOPAS_BBOX_WIDTH 16
-#define KOOPAS_BBOX_HEIGHT 26
-#define KOOPAS_BBOX_HEIGHT_DIE 16
-
-#define KOOPAS_STATE_WALKING 100
-#define KOOPAS_STATE_DIE 200
-
-#define KOOPAS_ANI_WALKING_LEFT 0
-#define KOOPAS_ANI_WALKING_RIGHT 1
-#define KOOPAS_ANI_DIE 2
+#define KOOPA_MOVE_SPEED_X					0.025f
+#define KOOPA_SPIN_AND_MOVE_SPEED_X			0.2f
+#define KOOPA_DEFLECT_SPEED_Y				0.15f
+#define KOOPA_DEFLECT_SPEED_X				0.03f
+#define KOOPA_BBOX_WIDTH					16
+#define KOOPA_BBOX_HEIGHT					27
+#define KOOPA_BBOX_HEIGHT_LAY_VIBRATE_SPIN	16
+#define KOOPA_BBOX_WIDTH_VIBRATE			18
+#define KOOPA_ANI_MOVE_RIGHT				0
+#define KOOPA_ANI_MOVE_LEFT					1
+#define KOOPA_ANI_LAY_PRONE					2
+#define KOOPA_ANI_LAY_SUPINE				3
+#define KOOPA_ANI_VIBRATE_PRONE				4
+#define KOOPA_ANI_VIBRATE_SUPINE			5
+#define KOOPA_ANI_SPIN_AND_MOVE_PRONE		6
+#define KOOPA_ANI_SPIN_AND_MOVE_SUPINE		7
+#define KOOPA_STATE_SPIN_AND_MOVE			80
 
 class CKoopas : public CGameObject
 {
@@ -22,6 +26,8 @@ class CKoopas : public CGameObject
 	virtual void Render();
 
 public:
+	bool died;
+
 	CKoopas();
 	virtual void SetState(int state);
 };
