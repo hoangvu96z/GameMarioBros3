@@ -61,6 +61,7 @@ public:
 
 	int nx;
 	int width;
+	int height;
 
 	int state;
 

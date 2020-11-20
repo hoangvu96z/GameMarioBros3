@@ -17,12 +17,8 @@
 
 #include "Utils.h"
 #include "Game.h"
-#include "GameObject.h"
 #include "Textures.h"
 
-#include "Mario.h"
-#include "Brick.h"
-#include "Goomba.h"
 
 #include "PlayScence.h"
 

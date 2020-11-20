@@ -1,9 +1,9 @@
 
 #pragma once
-#include "GameObject.h"
 #include "Koopas.h"
 #include "Fireball.h"
 #include "HitEffect.h"
+class CKoopas;
 
 #define MARIO_WALKING_SPEED		0.15f 
 //0.1f
@@ -41,6 +41,9 @@
 #define MARIO_STATE_STOP			900
 #define MARIO_STATE_ATTACK			1000
 #define MARIO_STATE_DIE				999
+#define MARIO_WALKING_WHILE_HOLDING_SHELL	1113
+#define MARIO_IDLE_WHILE_HOLDING_SHELL		1114
+#define MARIO_ON_AIR_WHILE_HOLDING_SHELL	1115
 
 // **ANIMATION Definition
 
@@ -58,6 +61,9 @@
 #define MARIO_ANI_BIG_STOP_RIGHT			5
 #define MARIO_ANI_BIG_FALLING_RIGHT			6
 #define MARIO_ANI_BIG_KICK_RIGHT			67
+#define	MARIO_ANI_BIG_IDLE_HOLD_SHELL_RIGHT		75
+#define	MARIO_ANI_BIG_WALKING_HOLD_SHELL_RIGHT	76
+#define	MARIO_ANI_BIG_ON_AIR_HOLD_SHELL_RIGHT	77
 
 #define MARIO_ANI_BIG_IDLE_LEFT				7
 #define MARIO_ANI_BIG_WALKING_LEFT			8
@@ -67,6 +73,9 @@
 #define MARIO_ANI_BIG_STOP_LEFT				12
 #define MARIO_ANI_BIG_FALLING_LEFT			13
 #define MARIO_ANI_BIG_KICK_LEFT				68
+#define	MARIO_ANI_BIG_IDLE_HOLD_SHELL_LEFT		78
+#define	MARIO_ANI_BIG_WALKING_HOLD_SHELL_LEFT	79
+#define	MARIO_ANI_BIG_ON_AIR_HOLD_SHELL_LEFT	80
 
 // - MARIO SMALL 
 
@@ -75,12 +84,18 @@
 #define MARIO_ANI_SMALL_RUNNING_RIGHT		16
 #define MARIO_ANI_SMALL_JUMP_RIGHT			17
 #define MARIO_ANI_SMALL_STOP_RIGHT			18
+#define MARIO_ANI_SMALL_IDLE_HOLD_SHELL_RIGHT		81
+#define MARIO_ANI_SMALL_WALKING_HOLD_SHELL_RIGHT	82
+#define MARIO_ANI_SMALL_ON_AIR_HOLD_SHELL_RIGHT		83
 
 #define MARIO_ANI_SMALL_IDLE_LEFT			19
 #define MARIO_ANI_SMALL_WALKING_LEFT		20
 #define MARIO_ANI_SMALL_RUNNING_LEFT		21
 #define MARIO_ANI_SMALL_JUMP_LEFT			22
 #define MARIO_ANI_SMALL_STOP_LEFT			23
+#define MARIO_ANI_SMALL_IDLE_HOLD_SHELL_LEFT		84
+#define MARIO_ANI_SMALL_WALKING_HOLD_SHELL_LEFT		85
+#define MARIO_ANI_SMALL_ON_AIR_HOLD_SHELL_LEFT		86
 
 // - MARIO RACCON
 
@@ -97,6 +112,9 @@
 #define MARIO_RACCOON_ANI_FLYING_DOWN_RIGHT				63
 #define MARIO_RACCOON_ANI_WAG_TAIL_WHILE_FLYING_RIGHT	64
 #define MARIO_RACCOON_ANI_KICK_RIGHT					71
+#define MARIO_RACCOON_ANI_IDLE_HOLD_SHELL_RIGHT			87
+#define MARIO_RACCOON_ANI_WALKING_HOLD_SHELL_RIGHT		88
+#define MARIO_RACCOON_ANI_ON_AIR_HOLD_SHELL_RIGHT		89
 
 #define MARIO_RACCOON_ANI_IDLE_LEFT						34
 #define MARIO_RACCOON_ANI_WALK_LEFT						35
@@ -111,6 +129,9 @@
 #define MARIO_RACCOON_ANI_FLYING_DOWN_LEFT				65
 #define MARIO_RACCOON_ANI_WAG_TAIL_WHILE_FLYING_LEFT	66
 #define MARIO_RACCOON_ANI_KICK_LEFT						72
+#define MARIO_RACCOON_ANI_IDLE_HOLD_SHELL_LEFT			90
+#define MARIO_RACCOON_ANI_WALKING_HOLD_SHELL_LEFT		91
+#define MARIO_RACCOON_ANI_ON_AIR_HOLD_SHELL_LEFT		92
 
 // - MARIO FIRE
 
@@ -124,6 +145,9 @@
 #define MARIO_FIRE_ANI_SITTING_RIGHT						51
 #define MARIO_FIRE_ANI_FALLING_RIGHT						52
 #define MARIO_FIRE_ANI_KICK_RIGHT							73
+#define MARIO_FIRE_ANI_IDLE_HOLD_SHELL_RIGHT				93
+#define MARIO_FIRE_ANI_WALKING_HOLD_SHELL_RIGHT				94
+#define MARIO_FIRE_ANI_ON_AIR_HOLD_SHELL_RIGHT				95
 
 #define MARIO_FIRE_ANI_IDLE_LEFT							53
 #define MARIO_FIRE_ANI_WALK_LEFT							54
@@ -135,6 +159,9 @@
 #define MARIO_FIRE_ANI_SITTING_LEFT							60
 #define MARIO_FIRE_ANI_FALLING_LEFT							61
 #define MARIO_FIRE_ANI_KICK_LEFT							74
+#define MARIO_FIRE_ANI_IDLE_HOLD_SHELL_LEFT					96
+#define MARIO_FIRE_ANI_WALKING_HOLD_SHELL_LEFT				97
+#define MARIO_FIRE_ANI_ON_AIR_HOLD_SHELL_LEFT				98
 
 
 #define MARIO_FIRE_BBOX_WIDTH	15
@@ -188,9 +215,9 @@ class CMario : public CGameObject
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
-
+	
 public:
-
+	
 	vector<LPGAMEOBJECT> listWeapon;
 	vector<LPGAMEOBJECT> listEffect;
 
@@ -199,10 +226,12 @@ public:
 	ULONGLONG waggingTailStartTime;
 	ULONGLONG kickStartTime;
 
-	bool isSpeedingUp, isFalling, isSitting, isWaggingTail, isFlying, isAttacking;
+	bool isFalling, isSitting, isWaggingTail, isFlying, isAttacking, isRunning;
 	bool canFlyUpFromGround;
+	bool isHoldingShell;
 	bool isOnGround;
 	bool kickShell;
+	bool immovable;	
 
 	bool isWaitingForAni;
 	bool specialAniCase;
@@ -237,4 +266,8 @@ public:
 	void ChangeToFireMario();
 	void Attack();
 	void WhenTouchWithEnermy();
+	void DropShell();
+
+private : 
+	friend class CKoopas;
 };

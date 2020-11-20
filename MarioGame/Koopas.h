@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Mario.h"
+class CMario;
 
 #define KOOPA_MOVE_SPEED_X					0.025f
 #define KOOPA_SPIN_AND_MOVE_SPEED_X			0.2f
@@ -18,6 +20,7 @@
 #define KOOPA_ANI_SPIN_AND_MOVE_PRONE		6
 #define KOOPA_ANI_SPIN_AND_MOVE_SUPINE		7
 #define KOOPA_STATE_SPIN_AND_MOVE			80
+#define KOOPA_STATE_BEING_HELD				81
 
 class CKoopas : public CGameObject
 {
@@ -27,7 +30,15 @@ class CKoopas : public CGameObject
 
 public:
 	bool died;
+	bool isSupine;
+	bool isBeingHeld;
 
-	CKoopas();
+	int startingPos;
+	
+	CMario* player = NULL;
+	
+	CKoopas(CMario* mario, int startingPos);
 	virtual void SetState(int state);
+	void SetPositionAccordingToPlayer();
+	void Reset();
 };

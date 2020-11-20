@@ -157,7 +157,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case ObjectType::GOOMBA: obj = new CGoomba(); break;
-	case ObjectType::KOOPA: obj = new CKoopas(); break;
+	case ObjectType::KOOPA: {
+		int startingPos = atof(tokens[4].c_str());
+		obj = new CKoopas(player, startingPos);
+		break;
+	}
 	case ObjectType::PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());
@@ -338,8 +342,11 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		}
 		break;
 	case DIK_A: // attack enemies
-		if (mario->GetLevel() == MARIO_FIRE || mario->GetLevel() == MARIO_RACCOON)
+		if (mario->GetLevel() == MARIO_FIRE || mario->GetLevel() == MARIO_RACCOON) {
 			mario->Attack();
+		}
+		mario->isRunning = false;
+		mario->isHoldingShell = false;
 		break;
 	case DIK_DOWN:
 		if (mario->isOnGround)
@@ -349,19 +356,54 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states)
 {
-	CGame *game = CGame::GetInstance();
-	CMario *mario = ((CPlayScene*)scence)->GetPlayer();
+	CGame* game = CGame::GetInstance();
+	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
 
-	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT)) {
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-		/*float cx, cy;
-		mario->GetPosition(cx, cy);
-		DebugOut(L"[INFO] Mario:: X: %0.1f, Y: %0.1f \n", cx, cy);*/
+	if (mario->GetState() == MARIO_STATE_DIE)
+		return;
+	if (mario->isWaitingForAni)
+		return;
+
+	else if ((game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
+		|| (game->IsKeyDown(DIK_DOWN) && game->IsKeyDown(DIK_UP)))
+	{
+		mario->SetState(MARIO_STATE_IDLE);
+		mario->isSitting = false;
+	}
+	else if (game->IsKeyDown(DIK_A) && game->IsKeyDown(DIK_RIGHT))
+	{
+		mario->isRunning = true;
+		if (!mario->immovable)
+			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
+		else
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+	}
+	else if (game->IsKeyDown(DIK_A) && game->IsKeyDown(DIK_LEFT))
+	{
+		mario->isRunning = true;
+		if (!mario->immovable)
+			mario->SetState(MARIO_STATE_RUNNING_LEFT);
+		else
+			mario->SetState(MARIO_STATE_WALKING_LEFT);
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
+	{
+		if (mario->vx > 0 && mario->isOnGround)
+			mario->SetState(MARIO_STATE_STOP);
+		else
+		{
+			mario->SetState(MARIO_STATE_WALKING_LEFT);
+		}
+	}
+	else if (game->IsKeyDown(DIK_RIGHT))
+	{
+		if (mario->vx < 0 && mario->isOnGround)
+			mario->SetState(MARIO_STATE_STOP);
+		else
+		{
+			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		}
+	}
 	else if (game->IsKeyDown(DIK_DOWN))
 	{
 		if (mario->GetLevel() != MARIO_LEVEL_SMALL && mario->isOnGround)
@@ -369,14 +411,18 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 			mario->SetState(MARIO_STATE_SIT_DOWN);
 			mario->isSitting = true;
 		}
-	} else if ((game->IsKeyDown(DIK_LEFT) && game->IsKeyDown(DIK_RIGHT))
-		|| (game->IsKeyDown(DIK_DOWN) && game->IsKeyDown(DIK_UP)))
-	{
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->isSitting = false;
 	}
-	else 
-		mario->SetState(MARIO_STATE_IDLE);
+	else if (game->IsKeyDown(DIK_X))
+	{
+		mario->SetState(MARIO_STATE_JUMP_LOW);
+	}
+	else
+	{
+		if (mario->isOnGround) {
+			mario->SetState(MARIO_STATE_IDLE);
+			mario->isSitting = false;
+		}
+	}
 }
 
 void CPlayScene::_ParseSection_TileMap(string line)
