@@ -345,12 +345,27 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		if (mario->GetLevel() == MARIO_FIRE || mario->GetLevel() == MARIO_RACCOON) {
 			mario->Attack();
 		}
-		mario->isRunning = false;
-		mario->isHoldingShell = false;
 		break;
 	case DIK_DOWN:
 		if (mario->isOnGround)
 			mario->isSitting = false;
+	}
+}
+
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_A:
+		mario->isRunning = false;
+		mario->isHoldingShell = false;
+		break;
+
+	case DIK_DOWN:
+		if (mario->isOnGround)
+			mario->isSitting = false;
+		break;
 	}
 }
 
@@ -402,6 +417,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states)
 		else
 		{
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+			DebugOut(L"[INFO] MARIO POSITION: %d, %d \n", mario->x, mario->y);
 		}
 	}
 	else if (game->IsKeyDown(DIK_DOWN))

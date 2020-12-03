@@ -6,11 +6,9 @@
 
 class CPlatform : public CGameObject
 {
-	int height;
-	int width;
 public:
 
-	CPlatform(float width, float height);
+	CPlatform(int widthUnit, int heightUnit);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

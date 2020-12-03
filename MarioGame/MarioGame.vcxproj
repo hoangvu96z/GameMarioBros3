@@ -134,6 +134,8 @@
     <ClCompile Include="BigBox.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="Tail.cpp" />
+    <ClCompile Include="TailEffect.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -158,6 +160,8 @@
     <ClInclude Include="BigBox.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="Tail.h" />
+    <ClInclude Include="TailEffect.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
@@ -174,7 +178,6 @@
     <Text Include="mario-sample.txt" />
     <Text Include="world1-1.txt" />
     <Text Include="world1-2.txt" />
-    <Text Include="world1-3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

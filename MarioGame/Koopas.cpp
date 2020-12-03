@@ -44,6 +44,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	else
 	{
 		SetPositionAccordingToPlayer();
+		state = ENEMY_STATE_IDLE;
 	}
 
 	float camPosY = CGame::GetInstance()->GetCamPosY();
@@ -96,7 +97,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						vx = -vx;
 					}
-					if (state == ENEMY_STATE_MOVE && (x <= e->obj->x || x >= e->obj->x + e->obj->width - KOOPA_BBOX_WIDTH))
+					if (e->ny != 0 && state == ENEMY_STATE_MOVE && (x <= e->obj->x || x >= e->obj->x + e->obj->width - KOOPA_BBOX_WIDTH))
 					{
 						vx = -vx;
 					}

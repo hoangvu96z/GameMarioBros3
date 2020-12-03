@@ -10,7 +10,7 @@ CBigBox::CBigBox(int widthUnit, int heightUnit) : CGameObject::CGameObject()
 
 void CBigBox::Render()
 {
-	RenderBoundingBox(1);
+	//RenderBoundingBox(1);
 }
 
 void CBigBox::GetBoundingBox(float& l, float& t, float& r, float& b)

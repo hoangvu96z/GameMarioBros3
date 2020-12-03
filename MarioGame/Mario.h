@@ -3,7 +3,9 @@
 #include "Koopas.h"
 #include "Fireball.h"
 #include "HitEffect.h"
+#include "Tail.h"
 class CKoopas;
+class CTail;
 
 #define MARIO_WALKING_SPEED		0.15f 
 //0.1f
@@ -41,6 +43,7 @@ class CKoopas;
 #define MARIO_STATE_STOP			900
 #define MARIO_STATE_ATTACK			1000
 #define MARIO_STATE_DIE				999
+#define MARIO_WAG_TAIL_WHILE_FALLING		1112
 #define MARIO_WALKING_WHILE_HOLDING_SHELL	1113
 #define MARIO_IDLE_WHILE_HOLDING_SHELL		1114
 #define MARIO_ON_AIR_WHILE_HOLDING_SHELL	1115
@@ -205,6 +208,7 @@ class CKoopas;
 #define	MARIO_SHOOTING_FIREBALL_TIME	375
 #define MARIO_KICK_TIME					200
 #define MARIO_KICK						1100
+#define MARIO_FLY_GRAVITY			0.00035f
 
 
 class CMario : public CGameObject
@@ -252,6 +256,7 @@ public:
 	int GetAniId() { return aniId; }
 
 	CFireball* CreateFireball(float x, float y, int nx);
+	CTail* tail = new CTail();
 	
 	void Reset();
 
@@ -266,7 +271,6 @@ public:
 	void ChangeToFireMario();
 	void Attack();
 	void WhenTouchWithEnermy();
-	void DropShell();
 
 private : 
 	friend class CKoopas;

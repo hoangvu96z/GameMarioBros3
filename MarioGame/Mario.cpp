@@ -31,32 +31,25 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIO_GRAVITY * dt;
+		vy += MARIO_GRAVITY * dt;
 
 	if (level == MARIO_RACCOON && attackStartTime
 		&& GetTickCount64() - attackStartTime < MARIO_SPINNING_TAIL_TIME)
 		SetState(MARIO_STATE_ATTACK);
-	else
-		attackStartTime = 0;
-
-
-	if (level == MARIO_FIRE && attackStartTime
+	else if (level == MARIO_FIRE && attackStartTime
 		&& GetTickCount64() - attackStartTime < MARIO_SHOOTING_FIREBALL_TIME)
 		SetState(MARIO_STATE_ATTACK);
 	else
 		attackStartTime = 0;
 
-
-	if (waggingTailStartTime
-		&& GetTickCount64() - waggingTailStartTime < MARIO_WAGGING_TAIL_TIME)
-		SetState(MARIO_STATE_JUMP_HIGH);
-	else
+	if (!waggingTailStartTime
+		|| GetTickCount64() - waggingTailStartTime >= MARIO_WAGGING_TAIL_TIME)
 	{
 		waggingTailStartTime = 0;
 		isWaggingTail = false;
 	}
 
-	if (kickStartTime && GetTickCount() - kickStartTime >= MARIO_KICK_TIME)
+	if (kickStartTime && GetTickCount64() - kickStartTime >= MARIO_KICK_TIME)
 	{
 		kickStartTime = 0;
 		kickShell = false;
@@ -93,6 +86,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		listEffect[i]->Update(dt, coObjects);
 	}
 
+	tail->Update(dt, coObjects);
 	// remove weapons and effects have done
 	for (int i = 0; i < listWeapon.size(); i++)
 	{
@@ -649,6 +643,7 @@ void CMario::Render()
 				aniId = MARIO_RACCOON_ANI_RUNNING_LEFT;
 			break;
 
+		CASE_RACCOON_IS_FLYING:
 		case MARIO_STATE_FLYING:
 			if (isWaggingTail)
 			{
@@ -777,7 +772,6 @@ void CMario::Render()
 			else
 				aniId = MARIO_RACCOON_ANI_KICK_LEFT;
 			break;
-
 		CASE_RACCOON_IS_FALLING:
 		default:
 			if (nx > 0)
@@ -785,8 +779,6 @@ void CMario::Render()
 			else
 				aniId = MARIO_RACCOON_ANI_FALLING_LEFT;
 		}
-
-
 	}
 	// FIRE MARIO
 	else if (level == MARIO_FIRE)
@@ -995,6 +987,8 @@ void CMario::Render()
 		listEffect[i]->Render();
 	}
 
+	tail->Render();
+
 	//RenderBoundingBox();
 }
 
@@ -1109,6 +1103,46 @@ void CMario::SetState(int state)
 		vx = 0;
 		break;
 	}
+
+	if (GetAniId() == MARIO_RACCOON_ANI_SPIN_TAIL_IDLE_RIGHT
+		|| GetAniId() == MARIO_RACCOON_ANI_SPIN_TAIL_IDLE_LEFT)
+	{
+		LPANIMATION current_ani = animation_set->at(aniId);
+		switch (current_ani->GetCurrentFrame())
+		{
+		case 0:
+		case 4:
+			if (nx > 0)
+			{
+				tail->SetPosition(x + 2, y + 20);
+				tail->nx = -1;
+			}
+			else
+			{
+				tail->SetPosition(x + 23, y + 20);
+				tail->nx = 1;
+			}
+			tail->appearance = true;
+			break;
+		case 2:
+			if (nx > 0)
+			{
+				tail->SetPosition(x + 23, y + 20);
+				tail->nx = 1;
+			}
+			else
+			{
+				tail->SetPosition(x + 2, y + 20);
+				tail->nx = -1;
+			}
+			tail->appearance = true;
+			break;
+		default:
+			tail->appearance = false;
+		}
+	}
+	else
+		tail->appearance = false;
 }
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
@@ -1256,7 +1290,7 @@ void CMario::Attack()
 	if (level == MARIO_FIRE && listWeapon.size() == 2)
 		return;
 	SetState(MARIO_STATE_ATTACK);
-	attackStartTime = GetTickCount();
+	attackStartTime = GetTickCount64();
 	if (level == MARIO_FIRE)
 		isAttacking = true; // use also for Tail
 }

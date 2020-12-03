@@ -1,3 +1,4 @@
+
 #include "Goomba.h"
 CGoomba::CGoomba()
 {
@@ -8,13 +9,13 @@ CGoomba::CGoomba()
 
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isFinishedUsing)
+	if (died)
 		return;
 	left = x;
 	right = x + GOOMBA_BBOX_WIDTH;
 	bottom = y + GOOMBA_BBOX_HEIGHT;
 
-	if (state == GOOMBA_STATE_DIE_BY_KICK)
+	if (state == GOOMBA_STATE_DIE_BY_KICK) 
 	{
 		top = y + (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE_BY_KICK);
 	}
@@ -30,10 +31,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 	vy += MARIO_GRAVITY * dt;
 
-	if (dieTime && GetTickCount() - dieTime >= 250)
+	float camPosY = CGame::GetInstance()->GetCamPosY();
+	if (camPosY && y > camPosY + SCREEN_HEIGHT / 2)
+		isFinishedUsing = true;
+
+	if (deadTime && GetTickCount64() - deadTime >= GOOMBA_MAX_EXISTING_TIME_AFTER_DEATH)
 	{
 		isFinishedUsing = true;
-		vanish = true;
 	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -94,9 +98,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CGoomba::Render()
 {
-	if (vanish) return;
-
-	if (state == ENEMY_STATE_DIE)
+	if (state == ENEMY_STATE_DIE_BY_WEAPON || state == ENEMY_STATE_ATTACKED_BY_TAIL)
 		aniId = GOOMBA_ANI_DIE_BY_ATTACK_TOOL;
 	else if (state == GOOMBA_STATE_DIE_BY_KICK)
 		aniId = GOOMBA_ANI_DIE_BY_KICK;
@@ -113,10 +115,15 @@ void CGoomba::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case ENEMY_STATE_DIE:
-		vx = GOOMBA_DEFLECT_SPEED_X * attack_tool_nx;
+	case ENEMY_STATE_DIE_BY_WEAPON:
+		vx = GOOMBA_DEFLECT_SPEED_X * object_colliding_nx;
 		vy = -GOOMBA_DEFLECT_SPEED_Y;
-		isFinishedUsing = true;
+		died = true;
+		break;
+	case ENEMY_STATE_ATTACKED_BY_TAIL:
+		vx = ENEMY_DEFECT_SPEED_X_CAUSED_BY_TAIL * object_colliding_nx;
+		vy = -ENEMY_DEFECT_SPEED_Y_CAUSED_BY_TAIL;
+		died = true;
 		break;
 	case ENEMY_STATE_MOVE:
 		vx = -GOOMBA_MOVE_SPEED_X;
@@ -124,7 +131,7 @@ void CGoomba::SetState(int state)
 		break;
 	case GOOMBA_STATE_DIE_BY_KICK:
 		vx = 0;
-		dieTime = GetTickCount();
+		deadTime = GetTickCount64();
 		break;
 	}
 }

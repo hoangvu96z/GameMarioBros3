@@ -84,19 +84,25 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Source Files\Framework_Source</Filter>
     </ClCompile>
-    <ClCompile Include="Fireball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HitEffect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BigBox.cpp">
       <Filter>Source Files\Objects_Source</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source Files\Framework_Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Source Files\Objects_Source</Filter>
+    </ClCompile>
+    <ClCompile Include="HitEffect.cpp">
+      <Filter>Source Files\Objects_Source</Filter>
+    </ClCompile>
     <ClCompile Include="Platform.cpp">
+      <Filter>Source Files\Objects_Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TailEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,52 +125,58 @@
     <ClInclude Include="Background.h">
       <Filter>Header Files\Objects_Header</Filter>
     </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScence.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Scence.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files\Objects_Header</Filter>
-    </ClInclude>
     <ClInclude Include="constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Header Files\Framework_Header</Filter>
     </ClInclude>
-    <ClInclude Include="Fireball.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HitEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BigBox.h">
       <Filter>Header Files\Objects_Header</Filter>
     </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Header Files\Objects_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HitEffect.h">
+      <Filter>Header Files\Objects_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
     <ClInclude Include="Platform.h">
+      <Filter>Header Files\Objects_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScence.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Scence.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Framework_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TailEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -176,9 +188,6 @@
       <Filter>TXT Files</Filter>
     </Text>
     <Text Include="world1-2.txt">
-      <Filter>TXT Files</Filter>
-    </Text>
-    <Text Include="world1-3.txt">
       <Filter>TXT Files</Filter>
     </Text>
   </ItemGroup>

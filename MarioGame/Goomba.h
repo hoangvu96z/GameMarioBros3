@@ -1,3 +1,4 @@
+
 #pragma once
 #include "GameObject.h"
 
@@ -13,14 +14,17 @@
 #define GOOMBA_ANI_DIE_BY_KICK			1
 #define GOOMBA_ANI_DIE_BY_ATTACK_TOOL		2
 #define GOOMBA_STATE_DIE_BY_KICK		299
+#define GOOMBA_MAX_EXISTING_TIME_AFTER_DEATH	250
 
 class CGoomba : public CGameObject
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
-	DWORD dieTime;
+
 public:
+	bool died;
+	DWORD deadTime;
 	bool vanish;
 	CGoomba();
 	virtual void SetState(int state);
