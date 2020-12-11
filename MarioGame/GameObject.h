@@ -86,6 +86,7 @@ public:
 	{
 		return (l_a < r_b&& r_a > l_b && t_a < b_b&& b_a > t_b);
 	}
+	void SetType(ObjectType type) { this->type = type; }
 	int GetState() { return this->state; }
 
 	void RenderBoundingBox(int id);

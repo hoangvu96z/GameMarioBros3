@@ -27,6 +27,10 @@ void CTail::Update(ULONGLONG dt, vector<LPGAMEOBJECT>* coObjects)
 				e->object_colliding_nx = this->nx;
 				e->SetState(ENEMY_STATE_ATTACKED_BY_TAIL);
 			}
+			else if (e->type == ObjectType::BRONZE_BRICK)
+			{
+				e->SetState(STATE_DESTROYED);
+			}
 		}
 	}
 }

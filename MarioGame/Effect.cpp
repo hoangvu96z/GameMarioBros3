@@ -2,8 +2,8 @@
 
 CEffect::CEffect()
 {
-	category = EFFECT;
-	startEffect = GetTickCount64(); // i think this variable shouldn't be assigned here.
+	category = ObjectCategory::EFFECT;
+	startEffect = GetTickCount64();
 }
 
 void CEffect::GetBoundingBox(float& l, float& t, float& r, float& b)

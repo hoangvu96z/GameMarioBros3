@@ -3,8 +3,8 @@
 
 CKoopas::CKoopas(CMario* mario, int startingPos)
 {
-	type = KOOPA;
-	category = ENEMY;
+	type = ObjectType::KOOPA;
+	category = ObjectCategory::ENEMY;
 	player = mario;
 	this->startingPos = startingPos;
 	SetState(ENEMY_STATE_MOVE);
@@ -44,7 +44,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	else
 	{
 		SetPositionAccordingToPlayer();
-		state = ENEMY_STATE_IDLE;
 	}
 
 	float camPosY = CGame::GetInstance()->GetCamPosY();

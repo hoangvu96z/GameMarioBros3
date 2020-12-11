@@ -1,5 +1,5 @@
 #pragma once
-enum ObjectType
+enum class ObjectType
 {
 	PORTAL = 55,
 	MARIO = 0,
@@ -10,9 +10,11 @@ enum ObjectType
 	BIGBOX = 5,
 	FIREBALL = 7,
 	TAIL = 8,
+	BRONZE_BRICK = 9,
+	COIN = 10
 };
 
-enum ObjectCategory
+enum class ObjectCategory
 {
 	PLAYER,
 	ENEMY,
@@ -21,6 +23,18 @@ enum ObjectCategory
 	WEAPON,
 	EFFECT,
 	SCENE,
+};
+
+enum ItemOfBrick
+{
+	ITEM_RANDOM = 0,
+	ITEM_MONEY = 1
+};
+
+enum BrickTransformation
+{
+	BRICK_TRANSFORM = 1,
+	COIN_TRANSFORM = 2
 };
 
 #define ENEMY_STATE_ATTACKED_BY_TAIL			188  // lead to die or sleep

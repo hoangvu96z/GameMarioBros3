@@ -28,7 +28,7 @@ void TileMap::LoadMap()
 	LPDIRECT3DTEXTURE9 texTileMap = texture->Get(id);
 
 
-	int id_sprite = 0;
+	int id_sprite = 1;
 	for (UINT i = 0; i < num_row_on_texture; i++)
 	{
 		for (UINT j = 0; j < num_col_on_texture; j++)

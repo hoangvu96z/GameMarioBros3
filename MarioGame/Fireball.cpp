@@ -3,8 +3,8 @@
 
 CFireball::CFireball(D3DXVECTOR2 position, int nx)
 {
-	type = FIREBALL;
-	category = WEAPON;
+	type = ObjectType::FIREBALL;
+	category = ObjectCategory::WEAPON;
 	x = position.x;
 	y = position.y;
 	this->nx = nx;

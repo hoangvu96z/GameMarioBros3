@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "TailEffect.h"
+#include "BronzeBrick.h"
 
 #define TAIL_BBOX_WIDTH			9
 #define TAIL_BBOX_HEIGHT		6

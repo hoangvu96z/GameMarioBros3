@@ -215,7 +215,7 @@ class CMario : public CGameObject
 {
 	int level;
 	int untouchable;
-	DWORD untouchable_start;
+	ULONGLONG untouchable_start;
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
@@ -245,6 +245,7 @@ public:
 
 	float last_y = INITIAL_LAST_Y;
 	float last_vx;
+	float last_vy;
 
 	CMario(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -271,6 +272,7 @@ public:
 	void ChangeToFireMario();
 	void Attack();
 	void WhenTouchWithEnermy();
+	void CheckCollisionWithItems(vector<LPGAMEOBJECT>* listItem);
 
 private : 
 	friend class CKoopas;

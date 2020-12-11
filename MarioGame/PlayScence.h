@@ -14,6 +14,8 @@
 #include "Koopas.h"
 #include "TileMap.h"
 #include "Fireball.h"
+#include "CoinEffect.h"
+#include "constants.h"
 
 
 class CPlayScene: public CScene
@@ -23,6 +25,9 @@ protected:
 	TileMap* map;
 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> listBronzeBricks; // brick contains the item
+	vector<LPGAMEOBJECT> listItems;
+	vector<LPGAMEOBJECT> priorityListItems;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -39,6 +44,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	void DropItem(int itemType, float x, float y);
 
 	CMario * GetPlayer() { return player; } 
 

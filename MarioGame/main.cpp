@@ -149,7 +149,7 @@ int Run()
 
 		// dt: the time between (beginning of last frame) and now
 		// this frame: the frame we are about to render
-		DWORD dt = now - frameStart;
+		ULONGLONG dt = now - frameStart;
 
 		if (dt >= tickPerFrame)
 		{

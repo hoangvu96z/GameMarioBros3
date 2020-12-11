@@ -1,9 +1,9 @@
 #include "Platform.h"
 
-CPlatform::CPlatform(int widthUnit, int heightUnit)
+CPlatform::CPlatform(float widthUnit, float heightUnit)
 {
-	type = PLATFORM;
-	category = MISC;
+	type = ObjectType::PLATFORM;
+	category = ObjectCategory::MISC;
 	this->width = widthUnit * BBOX_WIDTH;
 	this->height = heightUnit * BBOX_HEIGHT;
 }

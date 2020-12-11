@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
+#include "BronzeBrick.h"
 
 using namespace std;
 
@@ -133,7 +134,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	if (tokens.size() < 3) return; // skip invalid lines - an object set must have at least id, x, y
 
-	int object_type = atoi(tokens[0].c_str());
+	ObjectType object_type = static_cast<ObjectType>(atoi(tokens[0].c_str()));
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
 
@@ -142,6 +143,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	CAnimationSets * animation_sets = CAnimationSets::GetInstance();
 
 	CGameObject *obj = NULL;
+	CBronzeBrick* brick = NULL;
 
 	switch (object_type)
 	{
@@ -184,18 +186,34 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CBigBox(width, height);
 		break;
 	}
+	case ObjectType::COIN:
+	case ObjectType::BRONZE_BRICK:
+	{
+		int transformation = atoi(tokens[4].c_str());
+		brick = new CBronzeBrick(transformation);
+		break;
+	}
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
 	}
 
-	// General object setup
-	obj->SetPosition(x, y);
-
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
-	obj->SetAnimationSet(ani_set);
-	objects.push_back(obj);
+	if (obj)
+	{
+		obj->SetType(object_type);
+		obj->SetPosition(x, y);
+		obj->SetAnimationSet(ani_set);
+		objects.push_back(obj);
+	}
+	else if (brick)
+	{
+		brick->SetType(object_type);
+		brick->SetPosition(x, y);
+		brick->SetAnimationSet(ani_set);
+		listBronzeBricks.push_back(brick);
+	}
 }
 
 void CPlayScene::Load()
@@ -258,16 +276,65 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
 	}
 
+	for (size_t i = 0; i < listBronzeBricks.size(); i++)
+	{
+		coObjects.push_back(listBronzeBricks[i]);
+	}
+
+	for (LPGAMEOBJECT item : priorityListItems)
+		item->Update(dt, &coObjects);
+
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
+		LPGAMEOBJECT e = objects[i];
+
+	}
+
+	player->CheckCollisionWithItems(&listItems);
+	player->CheckCollisionWithItems(&priorityListItems);
+
+	for (size_t i = 0; i < listBronzeBricks.size(); i++)
+	{
+		listBronzeBricks[i]->Update(dt, &coObjects);
+	}
+
+	for (LPGAMEOBJECT item : listItems)
+		item->Update(dt, &coObjects);
+
+	// remove objects
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		if (objects[i]->isFinishedUsing)
+			objects.erase(objects.begin() + i);
+	}
+
+	for (size_t i = 0; i < listBronzeBricks.size(); i++)
+	{
+		if (listBronzeBricks[i]->isFinishedUsing)
+		{
+			listBronzeBricks.erase(listBronzeBricks.begin() + i);
+		}
+	}
+
+	// remove items
+	for (size_t i = 0; i < listItems.size(); i++)
+	{
+		if (listItems[i]->isFinishedUsing)
+			listItems.erase(listItems.begin() + i);
+	}
+
+
+	for (size_t i = 0; i < priorityListItems.size(); i++)
+	{
+		if (priorityListItems[i]->isFinishedUsing)
+			priorityListItems.erase(priorityListItems.begin() + i);
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -288,8 +355,18 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	map->Draw();
-	for (int i = 0; i < objects.size(); i++)
+
+	for (LPGAMEOBJECT item : priorityListItems)
+		item->Render();
+
+	for (int i = objects.size() - 1; i >= 0; i--)
 		objects[i]->Render();
+
+	for (int i = listBronzeBricks.size() - 1; i >= 0; i--)
+		listBronzeBricks[i]->Render();
+
+	for (LPGAMEOBJECT item : listItems)
+		item->Render();
 }
 
 /*
@@ -456,4 +533,17 @@ void CPlayScene::_ParseSection_TileMap(string line)
 	int tile_height = atoi(tokens[8].c_str());
 	//int texID = atoi(tokens[0].c_str());
 	map = new TileMap(ID, file_texture.c_str(), file_path.c_str(), row_on_textures, col_on_textures, row_on_tile_map, col_on_tile_map, tile_width, tile_height);
+}
+
+void CPlayScene::DropItem(int itemType, float x, float y)
+{
+	switch (itemType)
+	{
+		case ITEM_MONEY:
+		{
+			CCoinEffect* effect = new CCoinEffect(x, y);
+			listItems.push_back(effect);
+			break;
+		}
+	}
 }

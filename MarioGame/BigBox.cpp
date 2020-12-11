@@ -2,8 +2,8 @@
 
 CBigBox::CBigBox(int widthUnit, int heightUnit) : CGameObject::CGameObject()
 {
-	type = BIGBOX;
-	category = MISC;
+	type = ObjectType::BIGBOX;
+	category = ObjectCategory::MISC;
 	this->width = widthUnit * 16;
 	this->height = heightUnit * 16;
 }

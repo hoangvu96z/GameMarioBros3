@@ -2,8 +2,8 @@
 #include "Goomba.h"
 CGoomba::CGoomba()
 {
-	type = GOOMBA;
-	category = ENEMY;
+	type = ObjectType::GOOMBA;
+	category = ObjectCategory::ENEMY;
 	SetState(ENEMY_STATE_MOVE);
 }
 

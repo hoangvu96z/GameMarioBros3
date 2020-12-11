@@ -12,8 +12,8 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	type = MARIO;
-	category = PLAYER;
+	type = ObjectType::MARIO;
+	category = ObjectCategory::PLAYER;
 
 	level = MARIO_LEVEL_SMALL;
 	untouchable = 0;
@@ -241,17 +241,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 							{
 								koopa->object_colliding_nx = this->nx;
 								kickShell = true;
-								kickStartTime = GetTickCount();
+								kickStartTime = GetTickCount64();
 								koopa->SetState(KOOPA_STATE_SPIN_AND_MOVE);
 							}
 						}
 					}
 				}
+			} else if (e->obj->type == ObjectType::COIN)
+			{
+				vy = last_vy;
+				e->obj->isFinishedUsing = true;
 			}
 		}
 	}
 
 	last_y = y;
+	if (vy) {
+		last_vy = vy;
+	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -1315,4 +1322,19 @@ void CMario::WhenTouchWithEnermy()
 	}
 	else
 		SetState(MARIO_STATE_DIE);
+}
+
+void CMario::CheckCollisionWithItems(vector<LPGAMEOBJECT>* listItem)
+{
+	float ml, mt, mr, mb, il, it, ir, ib; // main object (o) and the item (i)
+	GetBoundingBox(ml, mt, mr, mb);
+	for (UINT i = 0; i < listItem->size(); i++)
+	{
+		LPGAMEOBJECT e = listItem->at(i);
+		e->GetBoundingBox(il, it, ir, ib);
+		if (CGameObject::CheckCollisionAABB(ml, mt, mr, mb, il, it, ir, ib))
+		{
+			e->isFinishedUsing = true;
+		}
+	}
 }
