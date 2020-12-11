@@ -2,12 +2,12 @@
 
 CBronzeBrick::CBronzeBrick(int transformation)
 {
-	if (transformation == BrickTransformation::BRICK_FORM)
+	if (transformation == BrickTransformation::BRICK_TRANSFORM)
 	{
 		type = ObjectType::BRONZE_BRICK;
 		category = ObjectCategory::MISC;
 	}
-	else if (transformation == BrickTransformation::COIN_FORM)
+	else if (transformation == BrickTransformation::COIN_TRANSFORM)
 	{
 		type = ObjectType::COIN;
 		category = ObjectCategory::ITEM;
@@ -78,12 +78,12 @@ void CBronzeBrick::SetState(int state)
 	}
 	else if (state == STATE_NORMAL)
 	{
-		if (transformation == BrickTransformation::BRICK_FORM)
+		if (transformation == BrickTransformation::BRICK_TRANSFORM)
 		{
 			type = ObjectType::BRONZE_BRICK;
 			category = ObjectCategory::MISC;
 		}
-		else if (transformation == BrickTransformation::COIN_FORM)
+		else if (transformation == BrickTransformation::COIN_TRANSFORM)
 		{
 			type = ObjectType::COIN;
 			category = ObjectCategory::ITEM;
@@ -91,12 +91,12 @@ void CBronzeBrick::SetState(int state)
 	}
 	else if (state == STATE_TRANSFORMATION)
 	{
-		if (transformation == BrickTransformation::BRICK_FORM)
+		if (transformation == BrickTransformation::BRICK_TRANSFORM)
 		{
 			type = ObjectType::COIN;
 			category = ObjectCategory::ITEM;
 		}
-		else if (transformation == BrickTransformation::COIN_FORM)
+		else if (transformation == BrickTransformation::COIN_TRANSFORM)
 		{
 			type = ObjectType::BRONZE_BRICK;
 			category = ObjectCategory::MISC;
