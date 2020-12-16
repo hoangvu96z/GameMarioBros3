@@ -3,7 +3,7 @@ enum class ObjectType
 {
 	PORTAL = 55,
 	MARIO = 0,
-	QUESTION_BRICK = 1,
+	SECRET_BRICK = 1,
 	GOOMBA = 2,
 	KOOPA = 3,
 	PLATFORM = 4,
@@ -35,6 +35,12 @@ enum BrickTransformation
 {
 	BRICK_TRANSFORM = 1,
 	COIN_TRANSFORM = 2
+};
+
+enum TypeOfSecretBrick
+{
+	QUESTION_BRICK = 1,
+	DISGUISED_BRONZE_BRICK = 2,
 };
 
 #define ENEMY_STATE_ATTACKED_BY_TAIL			188  // lead to die or sleep

@@ -117,6 +117,9 @@
     <ClCompile Include="BrokenBrickUnit.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="SecretBrick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mario.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="BrokenBrickUnit.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SecretBrick.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

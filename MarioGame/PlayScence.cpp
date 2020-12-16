@@ -164,6 +164,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CKoopas(player, startingPos);
 		break;
 	}
+	case ObjectType::SECRET_BRICK:
+	{
+		int brickType = atoi(tokens[4].c_str());
+		int itemType = atoi(tokens[5].c_str());
+		obj = new CSecretBrick(brickType, itemType, y);
+		break;
+	}
 	case ObjectType::PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());
@@ -294,7 +301,15 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 		LPGAMEOBJECT e = objects[i];
-
+		if (e->type == ObjectType::SECRET_BRICK)
+		{
+			CSecretBrick* brick = dynamic_cast<CSecretBrick*>(e);
+			if (brick->isAboutToDropItem && !brick->dropped)
+			{
+				DropItem(brick->itemType, brick->x, brick->y);
+				brick->dropped = true;
+			}
+		}
 	}
 
 	player->CheckCollisionWithItems(&listItems);

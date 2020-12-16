@@ -52,6 +52,3 @@ void CSprites::Clear()
 
 	sprites.clear();
 }
-
-
-
