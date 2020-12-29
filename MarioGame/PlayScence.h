@@ -17,6 +17,8 @@
 #include "CoinEffect.h"
 #include "constants.h"
 #include "SecretBrick.h"
+#include "FirePiranha.h"
+#include "NonFirePiranha.h"
 
 
 class CPlayScene: public CScene

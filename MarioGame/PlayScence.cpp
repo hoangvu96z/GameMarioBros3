@@ -158,10 +158,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
-	case ObjectType::GOOMBA: obj = new CGoomba(); break;
+	case ObjectType::GOOMBA: obj = new CGoomba(player); break;
 	case ObjectType::KOOPA: {
-		int startingPos = atof(tokens[4].c_str());
-		obj = new CKoopas(player, startingPos);
+		obj = new CKoopas(player, x, y);
 		break;
 	}
 	case ObjectType::SECRET_BRICK:
@@ -184,6 +183,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float width = atof(tokens[4].c_str());
 		float height = atof(tokens[5].c_str());
 		obj = new CPlatform(width, height);
+		break;
+	}
+	case ObjectType::FIRE_PIRANHA:
+	{
+		int piranhaType = atoi(tokens[4].c_str());
+		obj = new CFirePiranha(player, piranhaType);
+		break;
+	}
+	case ObjectType::NON_FIRE_PIRANHA: 
+	{ 
+		obj = new CNonFirePiranha(player); 
 		break;
 	}
 	case ObjectType::BIGBOX:

@@ -1,4 +1,6 @@
 #pragma once
+
+// GLOBAL CLASS OR ENUMs
 enum class ObjectType
 {
 	PORTAL = 55,
@@ -8,10 +10,12 @@ enum class ObjectType
 	KOOPA = 3,
 	PLATFORM = 4,
 	BIGBOX = 5,
+	FIRE_PIRANHA = 6,
 	FIREBALL = 7,
 	TAIL = 8,
 	BRONZE_BRICK = 9,
-	COIN = 10
+	COIN = 10,
+	NON_FIRE_PIRANHA = 12,
 };
 
 enum class ObjectCategory
@@ -43,6 +47,27 @@ enum TypeOfSecretBrick
 	DISGUISED_BRONZE_BRICK = 2,
 };
 
+enum class OperationArea
+{
+	TOP_LEFT_FAR,
+	TOP_LEFT_NEAR,
+	TOP_RIGHT_FAR,
+	TOP_RIGHT_NEAR,
+	BOTTOM_LEFT_FAR,
+	BOTTOM_LEFT_NEAR,
+	BOTTOM_RIGHT_FAR,
+	BOTTOM_RIGHT_NEAR,
+	OUTSIDE_AREA,
+};
+
+enum TypeOfFirePiranha
+{
+	RED = 1,
+	GREEN = 2,
+};
+
+// GLOBAL DEFINEs
+
 #define ENEMY_STATE_ATTACKED_BY_TAIL			188  // lead to die or sleep
 #define ENEMY_STATE_DIE_BY_WEAPON				199
 #define ENEMY_STATE_MOVE						200
@@ -53,5 +78,10 @@ enum TypeOfSecretBrick
 #define MARIO_GRAVITY				0.0006f
 
 #define HIT_EFFECT_TIME	150
+#define FIREBALL_BBOX_WIDTH		8
+#define FIREBALL_BBOX_HEIGHT	8
 
 #define ENEMY_STATE_DIE	199
+
+#define	STATE_RAMMED				101
+#define STATE_BEING_HIT_BY_TAIL		102

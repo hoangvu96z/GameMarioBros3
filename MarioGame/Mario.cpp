@@ -74,9 +74,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		listWeapon[i]->Update(dt, coObjects);
 		if (listWeapon[i]->isFinishedUsing)
 		{
-			float bx, by;
-			listWeapon[i]->GetPosition(bx, by);
-			CHitEffect* effect = new CHitEffect({ bx, by });
+			float ax, ay; // accord (a)
+			listWeapon[i]->GetPosition(ax, ay);
+			CHitEffect* effect = new CHitEffect({ ax, ay }, listWeapon[i]->nx);
 			listEffect.push_back(effect);
 		}
 	}
@@ -251,6 +251,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				vy = last_vy;
 				e->obj->isFinishedUsing = true;
+			}
+			else if (e->obj->type == ObjectType::SECRET_BRICK)
+			{
+				if (ny > 0)
+				{
+					e->obj->SetState(STATE_RAMMED);
+				}
 			}
 		}
 	}
@@ -1336,5 +1343,20 @@ void CMario::CheckCollisionWithItems(vector<LPGAMEOBJECT>* listItem)
 		{
 			e->isFinishedUsing = true;
 		}
+	}
+}
+
+void CMario::WhenCollidingWithEnemy()
+{
+	if (level > MARIO_LEVEL_BIG) {
+		level = MARIO_LEVEL_BIG;
+		StartUntouchable();
+	}
+	else if (level > MARIO_LEVEL_SMALL) {
+		level = MARIO_LEVEL_SMALL;
+		StartUntouchable();
+	}
+	else {
+		SetState(MARIO_STATE_DIE);
 	}
 }

@@ -1,9 +1,9 @@
 
 #include "Goomba.h"
-CGoomba::CGoomba()
+CGoomba::CGoomba(CMario* player)
 {
-	type = ObjectType::GOOMBA;
 	category = ObjectCategory::ENEMY;
+	this->player = player;
 	SetState(ENEMY_STATE_MOVE);
 }
 
@@ -29,19 +29,21 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 	vy += MARIO_GRAVITY * dt;
 
 	float camPosY = CGame::GetInstance()->GetCamPosY();
 	if (camPosY && y > camPosY + SCREEN_HEIGHT / 2)
 		isFinishedUsing = true;
 
-	if (deadTime && GetTickCount64() - deadTime >= GOOMBA_MAX_EXISTING_TIME_AFTER_DEATH)
-	{
+	if (deadTime->IsTimeUp()) {
 		isFinishedUsing = true;
 	}
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
+	if (effect) {
+		effect->Update(dt, coObjects);
+	}
 
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
@@ -57,10 +59,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float rdx = 0;
 		float rdy = 0;
 
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		// block every object first!
 		y += min_ty * dy + ny * 0.4f;
 		x += min_tx * dx + nx * 0.4f;
 
@@ -107,6 +107,10 @@ void CGoomba::Render()
 
 	animation_set->at(aniId)->Render(x, y);
 
+	if (effect) {
+		effect->Render();
+	}
+
 	//RenderBoundingBox();
 }
 
@@ -118,24 +122,39 @@ void CGoomba::SetState(int state)
 	case ENEMY_STATE_DIE_BY_WEAPON:
 		vx = GOOMBA_DEFLECT_SPEED_X * object_colliding_nx;
 		vy = -GOOMBA_DEFLECT_SPEED_Y;
+		if (object_colliding_nx > 0)
+			effect = new CMoneyEffect({ x - 1, y - 7 });
+		else
+			effect = new CMoneyEffect({ x + 8, y - 7 });
 		died = true;
 		break;
 	case ENEMY_STATE_ATTACKED_BY_TAIL:
 		vx = ENEMY_DEFECT_SPEED_X_CAUSED_BY_TAIL * object_colliding_nx;
 		vy = -ENEMY_DEFECT_SPEED_Y_CAUSED_BY_TAIL;
+		if (object_colliding_nx > 0)
+			effect = new CMoneyEffect({ x + 1, y - 3 });
+		else
+			effect = new CMoneyEffect({ x - 7, y - 3 });
 		died = true;
 		break;
+
 	case ENEMY_STATE_MOVE:
 		vx = -GOOMBA_MOVE_SPEED_X;
 		nx = -1;
 		break;
+
 	case GOOMBA_STATE_DIE_BY_KICK:
 		vx = 0;
-		deadTime = GetTickCount64();
+		deadTime->Start();
+		effect = new CMoneyEffect({ x + 3, y - 7 });
+		break;
+
+	case GOOMBA_STATE_FLY_LOW:
+		vy = -0.05f;
+		break;
+
+	case GOOMBA_STATE_FLY_HIGH:
+		vy = -0.5;
 		break;
 	}
-}
-
-CGoomba::~CGoomba()
-{
 }

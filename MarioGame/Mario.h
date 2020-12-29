@@ -273,6 +273,8 @@ public:
 	void Attack();
 	void WhenTouchWithEnermy();
 	void CheckCollisionWithItems(vector<LPGAMEOBJECT>* listItem);
+	int GetUntouchable() { return untouchable; }
+	void WhenCollidingWithEnemy();
 
 private : 
 	friend class CKoopas;

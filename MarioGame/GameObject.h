@@ -9,6 +9,7 @@
 #include "Animations.h"
 #include "constants.h"
 #include "Game.h"
+#include "TimingUtils.h"
 
 
 using namespace std;

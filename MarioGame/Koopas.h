@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "Mario.h"
+#include "MoneyEffect.h"
+#include "TimingUtils.h"
 class CMario;
 
 #define KOOPA_MOVE_SPEED_X					0.025f
@@ -22,6 +24,9 @@ class CMario;
 #define KOOPA_STATE_SPIN_AND_MOVE			80
 #define KOOPA_STATE_BEING_HELD				81
 
+#define KOOPA_SLEEP_TIME					8000
+#define KOOPA_VIBRATION_TIME				3000
+
 class CKoopas : public CGameObject
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
@@ -32,12 +37,18 @@ public:
 	bool died;
 	bool isSupine;
 	bool isBeingHeld;
+	bool reset;
 
-	int startingPos;
-	
-	CMario* player = NULL;
-	
-	CKoopas(CMario* mario, int startingPos);
+	CTimingUtils* sleepTime = new CTimingUtils(KOOPA_SLEEP_TIME);
+	CTimingUtils* vibrationTime = new CTimingUtils(KOOPA_VIBRATION_TIME);
+
+	float lastMoveSpeed = KOOPA_MOVE_SPEED_X;
+	float startingPosX, startingPosY;
+
+	CMario* player;
+	CMoneyEffect* effect;
+
+	CKoopas(CMario* mario, float x, float y);
 	virtual void SetState(int state);
 	void SetPositionAccordingToPlayer();
 	void Reset();

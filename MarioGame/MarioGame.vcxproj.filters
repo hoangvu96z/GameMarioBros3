@@ -120,6 +120,18 @@
     <ClCompile Include="SecretBrick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimingUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FirePiranha.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PiranhaFireball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NonFirePiranha.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mario.h">
@@ -207,6 +219,18 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="SecretBrick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimingUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FirePiranha.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PiranhaFireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NonFirePiranha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
