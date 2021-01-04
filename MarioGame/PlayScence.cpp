@@ -410,53 +410,48 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	CMario* mario = ((CPlayScene*)scene)->GetPlayer();
 
-	CMario *mario = ((CPlayScene*)scence)->GetPlayer();
+	if (mario->GetState() == MARIO_STATE_DIE)
+		return;
+
 	switch (KeyCode)
 	{
-	case DIK_1:
-		mario->ChangeToBigMario();
-		break;
-	case DIK_R: 
-		mario->Reset();
-		break;
-	case DIK_2: 
-		mario->ChangeToRaccoonMario();
-		break;
-	case DIK_3: 
-		mario->ChangeToFireMario();
-		break;
-	case DIK_SPACE:
-		if (mario->canFlyUpFromGround)
+	case DIK_S:
+		if (mario->canFly)
+			return;
+		if (mario->onPressUp)
+			return;
+		if (mario->vy < 0 && !mario->isWaggingTail)
 		{
-			if (mario->GetLevel() == MARIO_RACCOON)
-				mario->SetState(MARIO_STATE_FLYING);
-			mario->canFlyUpFromGround = false;
-			mario->isFlying = true;
-		}
-		else
-		{
-			if (!mario->isOnGround && mario->GetLevel() == MARIO_RACCOON)
-				mario->isWaggingTail = true;
-			mario->SetState(MARIO_STATE_JUMP_HIGH);
-			mario->waggingTailStartTime = GetTickCount64();
+			float factor = 15 - ((mario->y_when_started_to_jump - mario->y) / 10) * 2;
+			mario->vy += MARIO_GRAVITY * factor * mario->dt;
 		}
 		break;
-	case DIK_A: // attack enemies
-		if (mario->GetLevel() == MARIO_FIRE || mario->GetLevel() == MARIO_RACCOON) {
-			mario->Attack();
-		}
+
+	case DIK_X:
+		mario->vy += MARIO_GRAVITY * 7 * mario->dt;
+		break;
+
+	case DIK_UP:
+		mario->onPressUp = false;
+		break;
+
+	case DIK_A:
+		mario->isRunning = false;
+		mario->isHoldingShell = false;
 		break;
 	case DIK_DOWN:
 		if (mario->isOnGround)
 			mario->isSitting = false;
+		mario->unpressDown = true;
+		break;
 	}
 }
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* mario = ((CPlayScene*)scene)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_A:
@@ -474,7 +469,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 void CPlayScenceKeyHandler::KeyState(BYTE *states)
 {
 	CGame* game = CGame::GetInstance();
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CMario* mario = ((CPlayScene*)scene)->GetPlayer();
 
 	if (mario->GetState() == MARIO_STATE_DIE)
 		return;

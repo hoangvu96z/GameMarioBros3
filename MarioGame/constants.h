@@ -16,6 +16,10 @@ enum class ObjectType
 	BRONZE_BRICK = 9,
 	COIN = 10,
 	NON_FIRE_PIRANHA = 12,
+	SUPER_LEAF = 13,
+	SUPER_MUSHROOM = 14,
+	ICE_FLOWER = 15,
+	P_SWITCH = 17,
 };
 
 enum class ObjectCategory
@@ -27,6 +31,18 @@ enum class ObjectCategory
 	WEAPON,
 	EFFECT,
 	SCENE,
+};
+
+enum class PowerLevel
+{
+	TIER_0,
+	TIER_1,
+	TIER_2,
+	TIER_3,
+	TIER_4,
+	TIER_5,
+	TIER_6,
+	TIER_7,
 };
 
 enum ItemOfBrick
@@ -66,6 +82,14 @@ enum TypeOfFirePiranha
 	GREEN = 2,
 };
 
+enum class ItemOfBox
+{
+	STAR = 0,
+	MUSHROOM = 1,
+	FLOWER = 2,
+	MAX_ITEM_TYPE_NUM,
+};
+
 // GLOBAL DEFINEs
 
 #define ENEMY_STATE_ATTACKED_BY_TAIL			188  // lead to die or sleep
@@ -85,3 +109,28 @@ enum TypeOfFirePiranha
 
 #define	STATE_RAMMED				101
 #define STATE_BEING_HIT_BY_TAIL		102
+
+#define SPEED_X_TIER_1	0.125f
+#define SPEED_X_TIER_2	0.140f
+#define SPEED_X_TIER_3	0.155f
+#define SPEED_X_TIER_4	0.170f
+#define SPEED_X_TIER_5	0.190f
+#define SPEED_X_TIER_6	0.210f
+#define SPEED_X_TIER_7	0.230f
+
+#define STATE_TRANSFORMATION	100
+#define STATE_NORMAL			200
+#define STATE_PRESSED				250
+
+#define INITIAL_PLAYER_LIVES		4
+#define START_POINT_X	32
+#define START_POINT_Y	48
+#define POINT_SIDE_LENGTH	4.0f
+
+// Camera
+#define CAMERA_INITIAL_Y		238.0f
+#define CAMERA_HIDDEN_AREA_Y	464.0f
+
+// Koopa
+#define KOOPA_STATE_NORMAL					82
+#define KOOPA_STATE_VIBRATE					83

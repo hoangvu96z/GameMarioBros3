@@ -2,8 +2,6 @@
 
 #include "Utils.h"
 
-HWND _hwnd = NULL;
-
 void DebugOut(wchar_t *fmt, ...)
 {
 	va_list argp;
@@ -14,12 +12,6 @@ void DebugOut(wchar_t *fmt, ...)
 	OutputDebugString(dbg_out);
 }
 
-void DebugOutTitle(wchar_t* fmt, ...)
-{
-	wchar_t s[1024];
-	VA_PRINTS(s);
-	SetWindowText(_hwnd, s);
-}
 
 vector<string> split(string line, string delimeter)
 {

@@ -27,6 +27,14 @@ class CMario;
 #define KOOPA_SLEEP_TIME					8000
 #define KOOPA_VIBRATION_TIME				3000
 
+#define GREEN_PARAKOOPA_DEFLECT_SPEED_Y		0.22f
+#define GREEN_PARAKOOPA_ANI_MOVE_RIGHT		8
+#define GREEN_PARAKOOPA_ANI_MOVE_LEFT		9
+#define GREEN_PARAKOOPA_MOVE_SPEED_X		0.032f
+
+#define KOOPA_GRAVITY						0.00015f
+#define KOOPA_LEFT_ADDEND					1
+
 class CKoopas : public CGameObject
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);

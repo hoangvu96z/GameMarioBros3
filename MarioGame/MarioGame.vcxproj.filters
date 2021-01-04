@@ -132,6 +132,21 @@
     <ClCompile Include="NonFirePiranha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IceFlower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P_Meter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P_Switch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperLeaf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mario.h">
@@ -231,6 +246,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NonFirePiranha.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IceFlower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P_Meter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P_Switch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperLeaf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

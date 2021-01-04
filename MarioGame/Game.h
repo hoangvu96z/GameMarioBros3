@@ -37,9 +37,6 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
-
 	int screen_width;
 	int screen_height; 
 
@@ -64,6 +61,9 @@ public:
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
+
+	float cam_x = 0.0f;
+	float cam_y = 0.0f;
 
 	static void SweptAABB(
 		float ml,			// move left 
