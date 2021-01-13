@@ -20,6 +20,10 @@ enum class ObjectType
 	SUPER_MUSHROOM = 14,
 	ICE_FLOWER = 15,
 	P_SWITCH = 17,
+	TUSSOCK = 30,
+	HELP_BUBBLE = 31,
+	GATEKEEPER = 32,
+	MAP_POINT = 51,
 };
 
 enum class ObjectCategory
@@ -48,7 +52,10 @@ enum class PowerLevel
 enum ItemOfBrick
 {
 	ITEM_RANDOM = 0,
-	ITEM_MONEY = 1
+	ITEM_COIN_MONEY = 1,
+	ITEM_MONEY = 2,
+	ITEM_1_UP_MUSHROOM = 5,
+	ITEM_P_SWITCH = 6,
 };
 
 enum BrickTransformation
@@ -134,3 +141,49 @@ enum class ItemOfBox
 // Koopa
 #define KOOPA_STATE_NORMAL					82
 #define KOOPA_STATE_VIBRATE					83
+
+#define MAX_PLAY_TIME	900
+
+#define INITIAL_PLAYER_LIVES		4
+
+#define HUD_POS_X_ADDEND			4
+#define HUD_POS_Y_SUBTRAHEND		69
+
+#define P_METER_POS_X				52
+#define P_METER_POS_Y				7
+
+#define NUMBER_WIDTH				8
+
+#define WORLD_ID					1
+#define WORLD_NUM_POS_X				37
+#define WORLD_NUM_POS_Y				7
+#define WORLD_NUM_MAX_SIZE			1
+
+#define LIVES_NUM_POS_X				29
+#define LIVES_NUM_POS_Y				15
+#define LIVES_NUM_MAX_SIZE			2
+
+#define SCORE_NUM_POS_X				52
+#define SCORE_NUM_POS_Y				15
+#define SCORE_NUM_MAX_SIZE			7
+
+#define MONEY_NUM_POS_X				132
+#define MONEY_NUM_POS_Y				7
+#define MONEY_NUM_MAX_SIZE			2
+
+#define TIME_REMAINING_NUM_POS_X	124
+#define TIME_REMAINING_NUM_POS_Y	15
+#define TIME_REMAINING_NUM_MAX_SIZE	3
+
+// PlayScene
+#define SCENE_SECTION_UNKNOWN			-1
+#define SCENE_SECTION_TEXTURES			2
+#define SCENE_SECTION_SPRITES			3
+#define SCENE_SECTION_ANIMATIONS		4
+#define SCENE_SECTION_ANIMATION_SETS	5
+#define SCENE_SECTION_OBJECTS			6
+#define SCENE_SECTION_TILEMAP			7
+
+// Screen
+#define SCREEN_DIVISOR			2.8
+#define COLOR_ADDEND_LEVEL_UP	1.4

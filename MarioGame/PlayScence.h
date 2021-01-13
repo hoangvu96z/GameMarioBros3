@@ -1,36 +1,44 @@
-
-
 #pragma once
 #include "Game.h"
-#include "Textures.h"
 #include "Scence.h"
 #include "GameObject.h"
-#include "Brick.h"
+#include "Portal.h"
+#include "SecretBrick.h"
+#include "BronzeBrick.h"
 #include "Mario.h"
 #include "Goomba.h"
-#include "BigBox.h"
-#include "Background.h"
-#include "Platform.h"
 #include "Koopas.h"
 #include "TileMap.h"
-#include "Fireball.h"
-#include "CoinEffect.h"
-#include "constants.h"
-#include "SecretBrick.h"
 #include "FirePiranha.h"
 #include "NonFirePiranha.h"
+#include "SuperLeaf.h"
+#include "IceFlower.h"
+#include "CoinEffect.h"
+#include "P_Switch.h"
+#include "StatusBar.h"
+#include "Camera.h"
+#include "BigBox.h"
 
 
-class CPlayScene: public CScene
+class CPlayScene : public CScene
 {
-protected: 
-	CMario *player;					// A play scene has to have player, right? 
+protected:
+	CMario* player;					// A play scene has to have player, right? 
 	TileMap* map;
+	Camera* cam;
+	CStatusBar* HUD;
+	int worldID = 1;
 
 	vector<LPGAMEOBJECT> objects;
-	vector<LPGAMEOBJECT> listBronzeBricks; // brick contains the item
+	vector<LPGAMEOBJECT> listBronzeBricks;
 	vector<LPGAMEOBJECT> listItems;
 	vector<LPGAMEOBJECT> priorityListItems;
+	vector<LPGAMEOBJECT> listPipes;
+
+	double colorSubtrahend;
+	int alpha = 0;
+	//bool darkeningIsDone = false;
+	bool lighteningIsDone = false;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -39,27 +47,30 @@ protected:
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_TileMap(string line);
 
-	
-public: 
+
+public:
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
-	virtual void Update(DWORD dt);
+	virtual void Update(ULONGLONG dt);
 	virtual void Render();
 	virtual void Unload();
-	void DropItem(int itemType, float x, float y);
 
-	CMario * GetPlayer() { return player; } 
+	void DropItem(int itemType, float x, float y);
+	void DarkenTheScreen(CMario* player, Camera* cam);
+	void LightenTheScreen(CMario* player);
+
+	CMario* GetPlayer() { return player; }
 
 	//friend class CPlayScenceKeyHandler;
 };
 
-class CPlayScenceKeyHandler : public CScenceKeyHandler
+class CPlaySceneKeyHandler : public CSceneKeyHandler
 {
-public: 
-	virtual void KeyState(BYTE *states);
+public:
+	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-	CPlayScenceKeyHandler(CScene *s) :CScenceKeyHandler(s) {};
+	CPlaySceneKeyHandler(CScene* s) :CSceneKeyHandler(s) {};
 };
 

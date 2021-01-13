@@ -6,6 +6,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+#define OVERWORLD_MAP_SCENE_ID	0
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -15,8 +16,8 @@
 using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 759
+#define SCREEN_HEIGHT 740
 
 class CGame
 {
@@ -37,6 +38,8 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
+	
+
 	int screen_width;
 	int screen_height; 
 
@@ -47,6 +50,8 @@ class CGame
 	void _ParseSection_SCENES(string line);
 
 public:
+	float cam_x = 0.0f;
+	float cam_y = 0.0f;
 	void InitKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 	void Init(HWND hWnd);
@@ -61,9 +66,6 @@ public:
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
-
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
 
 	static void SweptAABB(
 		float ml,			// move left 
@@ -85,13 +87,16 @@ public:
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
-	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
+
 	float GetCamPosX() { return cam_x; }
 	float GetCamPosY() { return cam_y; }
+	void SetCamPosX(float a) {
+		cam_x = a;
+	}
+
+	void SetCamPosY(float b) { cam_y = b; }
 
 	static CGame * GetInstance();
 
 	~CGame();
 };
-
-
