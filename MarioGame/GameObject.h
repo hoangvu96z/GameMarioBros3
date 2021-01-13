@@ -17,6 +17,7 @@ using namespace std;
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
 #define ID_TEX_BBOX2 -101
 #define ID_TEX_BBOX3 -102
+#define ID_TEX_DARKEN	-200	// special texture to darken the screen
 
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;

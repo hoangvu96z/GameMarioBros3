@@ -129,6 +129,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrokenBrickUnit.cpp" />
     <ClCompile Include="BronzeBrick.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CoinEffect.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Fireball.cpp" />
@@ -136,11 +137,15 @@
     <ClCompile Include="IceFlower.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="BigBox.cpp" />
+    <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MapPoint.cpp" />
     <ClCompile Include="MoneyEffect.cpp" />
     <ClCompile Include="NonFirePiranha.cpp" />
+    <ClCompile Include="Number.cpp" />
+    <ClCompile Include="OverworldMapScene.cpp" />
     <ClCompile Include="PiranhaFireball.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="FirePiranha.cpp" />
     <ClCompile Include="P_Meter.cpp" />
@@ -168,6 +173,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrokenBrickUnit.h" />
     <ClInclude Include="BronzeBrick.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CoinEffect.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="Effect.h" />
@@ -176,9 +182,12 @@
     <ClInclude Include="IceFlower.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="BigBox.h" />
+    <ClInclude Include="MapObject.h" />
     <ClInclude Include="MapPoint.h" />
     <ClInclude Include="MoneyEffect.h" />
     <ClInclude Include="NonFirePiranha.h" />
+    <ClInclude Include="Number.h" />
+    <ClInclude Include="OverworldMapScene.h" />
     <ClInclude Include="PiranhaFireball.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Portal.h" />
